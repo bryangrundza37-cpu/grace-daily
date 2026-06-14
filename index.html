@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SoulAnchor | Light in the Dark</title>
-    <!-- Google Fonts pro moderní vzhled -->
+    <title>GraceDaily | Světlo pro tvou duši</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -39,13 +38,14 @@
 
         .container {
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
             text-align: center;
             animation: fadeIn 1s ease-out;
+            padding: 20px 0;
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 700;
             letter-spacing: -1px;
             margin-bottom: 8px;
@@ -56,64 +56,64 @@
 
         .subtitle {
             color: var(--text-muted);
-            font-size: 1rem;
-            margin-bottom: 40px;
+            font-size: 1.05rem;
+            margin-bottom: 35px;
             font-weight: 300;
         }
 
         .mood-container {
             display: grid;
-            grid-template-columns: repeat(2, 100px);
-            gap: 12px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
             justify-content: center;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
         }
 
         .mood-btn {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             color: var(--text-main);
-            padding: 12px 20px;
-            border-radius: 12px;
+            padding: 14px 8px;
+            border-radius: 14px;
             cursor: pointer;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.25s ease;
         }
 
         .mood-btn:hover {
             background: var(--card-bg);
             border-color: var(--accent-color);
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(74, 222, 128, 0.1);
         }
 
         .mood-btn.active {
             background: var(--accent-color);
             color: #000;
             border-color: var(--accent-color);
+            box-shadow: 0 8px 20px rgba(74, 222, 128, 0.2);
         }
 
         .display-card {
             background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-            padding: 40px 30px;
-            min-height: 250px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 28px;
+            padding: 45px 35px;
+            min-height: 300px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             position: relative;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            margin-bottom: 30px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            margin-bottom: 35px;
         }
 
         .verse-text {
             font-size: 1.35rem;
-            line-height: 1.6;
+            line-height: 1.65;
             font-weight: 400;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
             transition: opacity 0.3s ease;
         }
 
@@ -123,17 +123,23 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
 
         .prayer-text {
             color: var(--text-muted);
             font-style: italic;
             font-size: 1.05rem;
-            line-height: 1.5;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 20px;
+            line-height: 1.55;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 22px;
             width: 100%;
+        }
+
+        .actions-row {
+            display: flex;
+            gap: 25px;
+            margin-top: 20px;
         }
 
         .action-btn {
@@ -146,7 +152,6 @@
             align-items: center;
             gap: 6px;
             transition: color 0.2s;
-            margin-top: 15px;
         }
 
         .action-btn:hover {
@@ -158,6 +163,8 @@
             color: rgba(255, 255, 255, 0.2);
             font-size: 0.85rem;
             font-weight: 300;
+            text-align: center;
+            line-height: 1.6;
         }
 
         @keyframes fadeIn {
@@ -166,84 +173,141 @@
         }
 
         .fade-in-element {
-            animation: fadeIn 0.5s ease-out forwards;
+            animation: fadeIn 0.4s ease-out forwards;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>SoulAnchor</h1>
-        <p class="subtitle">Najdi klid a naději pro svou duši</p>
+        <h1>GraceDaily</h1>
+        <p class="subtitle">Najdi klid, sílu a naději pro svou duši</p>
 
         <div class="mood-container">
-            <button class="mood-btn" onclick="generateContent('strach', this)">Strach</button>
-            <button class="mood-btn" onclick="generateContent('unava', this)">Únava</button>
-            <button class="mood-btn" onclick="generateContent('vdecnost', this)">Vděčnost</button>
-            <button class="mood-btn" onclick="generateContent('nejistota', this)">Naděje</button>
+            <button class="mood-btn" onclick="generateContent('strach', this)">Strach a úzkost</button>
+            <button class="mood-btn" onclick="generateContent('unava', this)">Únava a vyčerpání</button>
+            <button class="mood-btn" onclick="generateContent('samota', this)">Samota a opuštění</button>
+            <button class="mood-btn" onclick="generateContent('vdecnost', this)">Vděčnost a radost</button>
+            <button class="mood-btn" onclick="generateContent('hnev', this)">Hněv a neklid</button>
+            <button class="mood-btn" onclick="generateContent('zklamani', this)">Zklamání a bolest</button>
+            <button class="mood-btn" onclick="generateContent('nejistota', this)">Neznámá budoucnost</button>
+            <button class="mood-btn" onclick="generateContent('hrich', this)">Pád a odpuštění</button>
         </div>
 
         <div class="display-card" id="card">
             <div id="content-box">
                 <p class="verse-text">„Neboť já vím, jaké úmysly mám s vámi, praví Hospodin. Jsou to úmysly o pokoji, nikoli o zlu, abych vám dal budoucnost a naději.“</p>
                 <p class="verse-ref">Jeremjáš 29:11</p>
-                <p class="prayer-text">Pane, děkuji ti, že máš můj život pevně ve svých rukou a že tvé plány se mnou jsou dobré. Daruj mi dnes klid.</p>
+                <p class="prayer-text">Pane, děkuji ti, že máš můj život pevně ve svých rukou a že tvé plány se mnou jsou dobré. Daruj mi dnes svůj hluboký klid.</p>
             </div>
             
-            <button class="action-btn" onclick="copyText()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                <span id="copy-status">Kopírovat</span>
-            </button>
+            <div class="actions-row">
+                <button class="action-btn" id="next-btn" style="display:none;" onclick="repeatMood()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                    <span>Další verš</span>
+                </button>
+                <button class="action-btn" onclick="copyText()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span id="copy-status">Kopírovat</span>
+                </button>
+            </div>
         </div>
     </div>
 
     <footer>
-        &copy; 2026 SoulAnchor | Spolu s AI jako partnerem projektu
+        &copy; 2026 GraceDaily<br>Spolu s AI jako hrdým partnerem projektu
     </footer>
 
     <script>
         const data = {
-            strach: {
-                verse: "„Neboj se, vždyť já jsem s tebou, nerohlížej se úzkostlivě, já jsem tvůj Bůh. Dodám ti sílu, ano, pomohu ti.“",
-                ref: "Izajáš 41:10",
-                prayer: "Otče, odevzdávám ti všechen svůj strach a úzkost. Naplň mé srdce svým dokonalým pokojem, který převyšuje každé chápání."
-            },
-            unava: {
-                verse: "„Pojďte ke mně, všichni, kdo se namáháte a jste obtíženi, a já vám dám odpočinout.“",
-                ref: "Matouš 11:28",
-                prayer: "Pane, moje tělo i mysl jsou unavené. Odkládám své starosti k tvým nohám a prosím tě o novou duchovní i fyzickou sílu."
-            },
-            vdecnost: {
-                verse: "„Chvalte Hospodina, protože je dobrý, jeho milosrdenství je věčné!“",
-                ref: "Žalm 136:1",
-                prayer: "Děkuji ti, Pane, za všechny dary, které mi dáváš, i za ty, které beru jako samozřejmost. Máš mé hluboké díky za tvou lásku."
-            },
-            nejistota: {
-                verse: "„Hospodin je mé světlo a má spása, koho bych se bál? Hospodin je záštita mého života, z koho bych měl strach?“",
-                ref: "Žalm 27:1",
-                prayer: "Když nevidím cestu před sebou, Pane, věřím, že ty ji vidíš. Buď mým světlem v temnotě a veď mé kroky."
-            }
+            strach: [
+                { verse: "Neboj se, vždyť já jsem s tebou, nerozhlížej se úzkostlivě, já jsem tvůj Bůh. Dodám ti sílu, ano, pomohu ti.", ref: "Izajáš 41:10", prayer: "Otče, odevzdávám ti všechen svůj strach. Naplň mé srdce svým dokonalým pokojem." },
+                { verse: "I kdybych měl jít údolím šeré smrti, nebudu se bát zlého, neboť ty jsi se mnou; tvá hůl a tvá opora mě potěšují.", ref: "Žalm 23:4", prayer: "Pane, i když kolem sebe vidím jen tmu, věřím, že kráčíš těsně vedle mě." },
+                { verse: "V den, kdy mě jímá strach, já doufám v tebe.", ref: "Žalm 56:4", prayer: "Můj Bože, když na mě padá úzkost, rozhoduji se plně důvěřovat tvému slovu." },
+                { verse: "V lásce není strach; strach zahání dokonalá láska.", ref: "1. Janova 4:18", prayer: "Pane, ponoř mě do své lásky, která dokáže vyhnat každou obavu z mé mysli." },
+                { verse: "Pokoj vám zanechávám, svůj pokoj vám dávám; ne jako dává svět, já vám dávám. Ať se vaše srdce nechvěje a neděsí!", ref: "Jan 14:27", prayer: "Přijímám tvůj pokoj, Ježíši. Chráním své srdce před strachem z tohoto světa." },
+                { verse: "Hospodin je mé světlo a má spása, koho bych se bál? Hospodin je záštita mého života, z koho bych měl strach?", ref: "Žalm 27:1", prayer: "Ty jsi má pevnost, Otče. Žádná hrozba zvenčí mě nemusí ochromit." }
+            ],
+            unava: [
+                { verse: "Pojďte ke mně, všichni, kdo se namáháte a jste obtíženi, a já vám dám odpočinout.", ref: "Matouš 11:28", prayer: "Pane, moje tělo i mysl jsou unavené. Odkládám své starosti k tvým nohám." },
+                { verse: "On dává unavenému sílu a bezmocnému rozhojňuje zdatnost.", ref: "Izajáš 40:29", prayer: "Dnes už nemám kde brát, Otče. Vlej mi prosím do žil svou novou duchovní sílu." },
+                { verse: "Má duše se hroutí smutkem; pozvedni mě podle svého slova!", ref: "Žalm 119:28", prayer: "Duchu Svatý, občerstvi moji unavenou duši. Buď mým pramenem živé vody." },
+                { verse: "Ale ti, kdo skládají naději v Hospodina, nabývají nove síly; vznášejí se na křídlech jako orli, běží a neunaví se.", ref: "Izajáš 40:31", prayer: "Skládám svou naději v tebe. Pozvedni mě nad mé okolnosti, ať můžu dál běžet." },
+                { verse: "Má síla a má píseň je Hospodin, stal se mou spásou.", ref: "Exodus 15:2", prayer: "Když jsem slabý, ty jsi moje síla. Budeš mým vítězným zpěvem i dnes." },
+                { verse: "Nezocházejme tedy v konání dobra; neboť v patřičný čas budeme žnout, jestliže neochabneme.", ref: "Galatským 6:9", prayer: "Dej mi vytrvalost, Pane, abych nevzdával věci těsně před cílem." }
+            ],
+            samota: [
+                { verse: "Hospodin sám půjde před tebou, on bude s tebou; nenechá tě klesnout a neopustí...", ref: "Deuteronomium 31:8", prayer: "I když se cítím opuštěný lidmi, děkuji ti, Pane, že ty mě nikdy nenecháš samotného." },
+                { verse: "A hle, já jsem s vámi po všechny dny až do skonání tohoto věku.", ref: "Matouš 28:20", prayer: "Ježíši, pomoz mi vnímat, že v této chvíli nejsem sám, protože ty jsi přímo zde se mnou." },
+                { verse: "I kdyby mě opustil otec můj i matka moje, Hospodin se mě ujme.", ref: "Žalm 27:10", prayer: "Tvá láska je hlubší než jakýkoliv lidský vztah. Děkuji, že mě přijímáš takového, jaký jsem." },
+                { verse: "Bůh osamělé usazuje v domě, vyvádí vězně k prosperitě...", ref: "Žalm 68:7", prayer: "Otče, uzdrav můj pocit osamění a propoj mě s lidmi, kteří mě duchovně povzbudí." },
+                { verse: "Může snad žena zapomenout na své nemluvně, nemít slitování nad synem vlastního lůna? I kdyby ony zapomněly, já na tebe nezapomenu.", ref: "Izajáš 49:15", prayer: "Děkuji, že jsem hluboce zapsán ve tvých dlaních, Pane." }
+            ],
+            vdecnost: [
+                { verse: "Chvalte Hospodina, protože je dobrý, jeho milosrdenství je věčné!", ref: "Žalm 136:1", prayer: "Děkuji ti, Pane, za tvou věčnou lásku a milosrdenství, které vidím každý den." },
+                { verse: "Toto je den, který učinil Hospodin, jásejme a radujme se z něho!", ref: "Žalm 118:24", prayer: "Děkuji za dar dnešního dne. Chci si všímat krásných drobností s vděčným srdcem." },
+                { verse: "Ve všem vzdávejte díky, neboť toto je pro vás Boží vůle v Kristu Ježíši.", ref: "1. Tesalonickým 5:18", prayer: "Uč mě vděčnosti i ve chvílích, kdy není vše perfektní. Vděčnost mění můj pohled." },
+                { verse: "Radost v Hospodinu je vaše síla.", ref: "Nehemjáš 8:10", prayer: "Pane, má radost nezávisí na majetku, ale na tom, že tě znám. Ty jsi moje největší radost!" },
+                { verse: "Dobrořeč, má duše, Hospodinu, a celé mé nitro jeho svatému jménu! Dobrořeč, má duše, Hospodinu, a nezapomínej na žádné jeho dobrodiní!", ref: "Žalm 103:1-2", prayer: "Chci ti dnes počítat tvá požehnání a oslavovat tě za všechno dobré." }
+            ],
+            hnev: [
+                { verse: "Hněváte-li se, nehřešte. Slunce ať nezapadá nad vaším hněvem.", ref: "Efezským 4:26", prayer: "Pane, uklidni moji bouřlivou mysl. Pomoz mi odpustit a nenechat hněv v mém srdci zakořenit." },
+                { verse: "Lidská hněvivost nepřináší to, co je spravedlivé před Bohem.", ref: "Jakub 1:20", prayer: "Odevzdávám ti pocit nespravedlnosti. Ztiš můj hněv a daruj mi moudrost reagovat v lásce." },
+                { verse: "Vlídná odpověď odvrací rozhořčení, ale kousavé slovo podněcuje hněv.", ref: "Přísloví 15:1", prayer: "Dej mi, Pane, stráž před ústa, abych v hněvu neublížil slovíčky těm, které miluji." },
+                { verse: "Zanech hněvu a opusť rozhorlení, v hněvu se nebuď k zlému.", ref: "Žalm 37:8", prayer: "Zklidni můj tep, Otče. Důvěřuji ti, že ty srovnáš věci lépe než moje zlost." }
+            ],
+            zklamani: [
+                { verse: "Blízko je Hospodin těm, kdo jsou zkroušeni v srdci, zachraňuje lidi s ubíjeným duchem.", ref: "Žalm 34:19", prayer: "Moje srdce je zlomené zklamáním, Pane. Přicházím k tobě pro uzdravení, protože vím, že jsi blízko." },
+                { verse: "On uzdravuje ty, kdo jsou zkroušeni v srdci, a obvazuje jejich rány.", ref: "Žalm 147:3", prayer: "Svěřuji ti svá zklamání a rány, které bolí. Věřím, že tvá milost mě dokáže plně obnovit." },
+                { verse: "Víme, že těm, kteří milují Boha, všechny věci napomáhají k dobrému.", ref: "Římanům 8:28", prayer: "Nerozumím tomu, proč se to stalo, ale věřím, že i toto zklamání dokážeš obrátit v něco dobrého." },
+                { verse: "Hospodin je útočiště ubitému, útočiště v dobách soužení. V tebe doufají, kdo znají tvé jméno.", ref: "Žalm 9:10-11", prayer: "Když mě zklamou lidé nebo plány, ty zůstáváš pevnou skálou." }
+            ],
+            nejistota: [
+                { verse: "Důvěřuj Hospodinu celým srdcem, na vlastní rozumnost nespoléhej. Poznávej ho na všech svých cestách, on sám napřímí tvé stezky.", ref: "Přísloví 3:5-6", prayer: "Když nevím, jak dál, odevzdávám ti svou budoucnost. Veď mé kroky, Pane." },
+                { verse: "Tvé slovo je lampou pro mé nohy, světlem na mé stezce.", ref: "Žalm 119:105", prayer: "Nepotřebuji vidět celý konec cesty, stačí mi světlo na další jeden krok, který dnes udělám s tebou." },
+                { verse: "Nepředvídejte tedy s úzkostí, co bude zítra; zítřek bude mít své starosti.", ref: "Matouš 6:34", prayer: "Osvoboď mě od neustálého plánování a strachu z budoucnosti. Pomoz mi žít plně v dnešním dni." },
+                { verse: "Hospodin určil kroky člověka, upevnil je, oblíbil si jeho cestu. I kdyby klesl, nezůstane ležet, protože Hospodin ho podpírá za ruku.", ref: "Žalm 37:23-24", prayer: "I v nejistotě vím, že mě nenecháš padnout na dno." }
+            ],
+            hrich: [
+                { verse: "Jestliže vyznáváme své hříchy, on je věrný a spravedlivý, aby nám hříchy odpustil a očistil nás od každé nepravosti.", ref: "1. Janova 1:9", prayer: "Pane, selhal jsem a mrzí mě to. Vyznávám ti svůj hřích a přijímám tvé čisté odpuštění." },
+                { verse: "Jak daleko je východ od západu, tak vzdaluje od nás naše nevěrnosti.", ref: "Žalm 103:12", prayer: "Děkuji ti, že moje minulost mě nedefinuje. Tvou milostí začínám znovu s čistým štítem." },
+                { verse: "Nyní tedy není žádného odsouzení pro ty, kteří jsou v Kristu Ježíši...", ref: "Římanům 8:1", prayer: "Odmítám pocity viny a odsouzení. Jsem tvé milované dítě a ty mě miluješ i přes mé chyby." },
+                { verse: "Pojďte, projednejme to, praví Hospodin. I kdyby vaše hříchy byly jako šarlat, zbělejí jako sníh...", ref: "Izajáš 1:18", prayer: "Tvá očistná moc je větší než moje nejhorší selhání. Děkuji za dar milosti." }
+            ]
         };
 
+        let currentActiveMood = '';
+
         function generateContent(mood, element) {
-            // Správa aktivních tlačítek
+            currentActiveMood = mood;
+            
             document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('active'));
             if(element) element.classList.add('active');
 
+            document.getElementById('next-btn').style.display = 'flex';
+
             const contentBox = document.getElementById('content-box');
-            
-            // Efekt bliknutí při změně
             contentBox.style.opacity = 0;
             
             setTimeout(() => {
+                const moodVerses = data[mood];
+                const randomIndex = Math.floor(Math.random() * moodVerses.length);
+                const selected = moodVerses[randomIndex];
+
                 contentBox.innerHTML = `
-                    <p class="verse-text">${data[mood].verse}</p>
-                    <p class="verse-ref">${data[mood].ref}</p>
-                    <p class="prayer-text">${data[mood].prayer}</p>
+                    <p class="verse-text">„${selected.verse}“</p>
+                    <p class="verse-ref">${selected.ref}</p>
+                    <p class="prayer-text">${selected.prayer}</p>
                 `;
                 contentBox.style.opacity = 1;
                 contentBox.className = "fade-in-element";
             }, 200);
+        }
+
+        function repeatMood() {
+            if(currentActiveMood) {
+                generateContent(currentActiveMood, null);
+            }
         }
 
         function copyText() {
