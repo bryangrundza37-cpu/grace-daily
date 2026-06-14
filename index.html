@@ -10,14 +10,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 20px; }
         .container { width: 100%; max-width: 650px; text-align: center; }
-        
-        /* Styl pro ikonu kříže */
-        .cross-icon {
-            color: var(--accent-color);
-            margin-bottom: 10px;
-            opacity: 0.9;
-        }
-
+        .cross-icon { color: var(--accent-color); margin-bottom: 10px; opacity: 0.9; }
         h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 20px; color: var(--accent-color); }
         .mood-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 25px; }
         .mood-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: var(--text-main); padding: 10px 5px; border-radius: 8px; cursor: pointer; font-size: 0.75rem; }
@@ -31,14 +24,12 @@
 </head>
 <body>
     <div class="container">
-        <!-- Ikona kříže umístěná nad názvem webu -->
         <div class="cross-icon">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="12" y1="2" x2="12" y2="22"></line>
                 <line x1="7" y1="8" x2="17" y2="8"></line>
             </svg>
         </div>
-
         <h1>GraceDaily</h1>
         <div class="mood-container">
             <button class="mood-btn" onclick="show('strach')">Strach</button>
@@ -69,7 +60,36 @@
             radost: [{v:"Radujte se v Pánu vždycky.", r:"Filipským 4:4"}, {v:"V tvé přítomnosti je plnost radosti.", r:"Žalm 16:11"}],
             pochybnost: [{v:"Věřím, pomoz mé pochybnosti!", r:"Marek 9:24"}, {v:"Hledejte a naleznete.", r:"Matouš 7:7"}]
         };
-        const challenges = ["Napiš někomu hezkou zprávu.", "Pět minut jen dýchej a mlč.", "Usměj se na cizího člověka.", "Poděkuj za jednu věc, co máš.", "Odpusť někomu malou drobnost."];
+
+        // Rozšířená databáze 25 úkolů
+        const challenges = [
+            "Napiš někomu hezkou zprávu jen tak, abys mu zlepšil den.",
+            "Pět minut jen v tichu dýchej a za nic se v tu chvíli nehoň.",
+            "Usměj se dnes upřímně na jednoho cizího člověka, kterého potkáš.",
+            "Poděkuj Bohu nebo osudu za tři konkrétní maličkosti, co dnes máš.",
+            "Odpusť v duchu někomu věc, která tě v poslední době mrzela.",
+            "Udělej dnes jeden drobný dobrý skutek v naprosté tajnosti.",
+            "Zavolej dnes někomu z rodiny, s kým jsi delší dobu nemluvil.",
+            "Dnes se vědomě vyhni jakémukoliv stěžování si na počasí, únavu nebo lidi.",
+            "Daruj dnes někomu upřímný, konkrétní kompliment.",
+            "Pusť dnes v dopravě nebo ve frontě někoho před sebe s milým gestem.",
+            "Ukliď si jedno místo pracovní plochy nebo pokoje jako symbol čisté mysli.",
+            "Věnuj dnes 10 minut četbě nebo poslechu něčeho, co tě duchovně posune.",
+            "Napiš si na papír jednu věc, která tě trápí, a pak ten papír zahoď.",
+            "Pomoz dnes někomu s něčím, i když tě o to sám přímo nepožádá.",
+            "Předtím než dnes odpovíš na něco nepříjemného, udělej tři hluboké nádechy.",
+            "Vzpomeň si na člověka, který ti v životě pomohl, a v duchu mu poděkuj.",
+            "Strávit dnes alespoň 15 minut na čerstvém vzduchu bez koukání do mobilu.",
+            "Připrav nebo kup dnes kávu/čaj pro někoho dalšího v tvém okolí.",
+            "Dnes udělej vědomě radost sám sobě něčím malým a zdravým.",
+            "Věnuj dnes večer chvíli rekapitulaci dne a najdi v něm ten nejhezčí moment.",
+            "Pomodli se dnes nebo vyšli dobrou myšlenku za někoho, koho nemáš příliš v lásce.",
+            "Pošli někomu starou společnou fotku s textem: 'Vzpomněl jsem si na naše super časy.'",
+            "Dnes o nikom nemluv v jeho nepřítomnosti negativně.",
+            "Poděkuj dnes osobě, která ti prodává jídlo, kávu nebo lístek, obzvlášť mile.",
+            "Napiš si tři své vlastnosti, za které jsi na sebe upřímně hrdý."
+        ];
+
         function show(mood) {
             const items = library[mood];
             const item = items[Math.floor(Math.random() * items.length)];
