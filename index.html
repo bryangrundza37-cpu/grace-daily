@@ -3,147 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GraceDaily | Tvá denní cesta</title>
+    <title>GraceDaily | Cesta k modlitbě</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-color: #0b130e; --card-bg: #142219; --accent-color: #4ade80; --text-main: #f3f4f6; --text-muted: #9ca3af; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        .container { width: 100%; max-width: 650px; text-align: center; }
-        .cross-icon { color: var(--accent-color); margin-bottom: 10px; }
-        h1 { font-size: 2rem; margin-bottom: 20px; color: var(--accent-color); }
-        .display-card { background: var(--card-bg); border-radius: 20px; padding: 30px; margin-bottom: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-        .verse-text { font-size: 1.2rem; margin-bottom: 15px; font-style: italic; line-height: 1.6; }
-        .verse-ref { color: var(--accent-color); font-weight: 700; margin-bottom: 20px; }
-        .challenge-card { border: 1px solid var(--accent-color); border-radius: 15px; padding: 20px; background: rgba(74, 222, 128, 0.05); margin-bottom: 20px; }
-        .challenge-card.done { border-color: #22c55e; background: rgba(34, 197, 94, 0.15); }
-        .btn-done { background: var(--accent-color); color: #000; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 15px; }
-        
-        /* Nová sekce pro otázky */
-        .qa-section { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 15px; padding: 20px; text-align: left; margin-bottom: 20px; }
-        .qa-title { color: var(--accent-color); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 10px; text-align: center; letter-spacing: 1px; }
-        .input-row { display: flex; gap: 10px; margin-bottom: 15px; }
-        input[type="text"] { flex: 1; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; color: var(--text-main); font-size: 0.95rem; outline: none; }
-        input[type="text"]:focus { border-color: var(--accent-color); }
-        .btn-ask { background: transparent; border: 1px solid var(--accent-color); color: var(--accent-color); padding: 0 20px; border-radius: 8px; font-weight: 600; cursor: pointer; }
-        .btn-ask:hover { background: var(--accent-color); color: #000; }
-        .answer-box { background: rgba(0,0,0,0.15); border-left: 3px solid var(--accent-color); padding: 12px; border-radius: 4px; font-style: italic; font-size: 0.95rem; display: none; line-height: 1.5; }
-
-        .reflection-section { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 15px; padding: 20px; text-align: left; }
-        textarea { width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; color: var(--text-main); font-size: 0.95rem; resize: none; min-height: 80px; outline: none; }
+        :root { --bg-color: #0b130e; --card-bg: #142219; --accent-color: #4ade80; --text-main: #f3f4f6; }
+        body { background-color: var(--bg-color); color: var(--text-main); padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { width: 100%; max-width: 650px; }
+        .btn-link { display: block; width: 100%; padding: 15px; background: rgba(74, 222, 128, 0.1); border: 1px solid var(--accent-color); border-radius: 12px; color: var(--accent-color); text-decoration: none; text-align: center; font-weight: 600; margin-bottom: 20px; }
+        .guide-box { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; margin-bottom: 20px; border-left: 4px solid var(--accent-color); }
+        h2 { color: var(--accent-color); font-size: 1.1rem; margin-bottom: 10px; }
+        .prayer-btn { background: var(--accent-color); color: #000; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="cross-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="7" y1="8" x2="17" y2="8"/></svg>
-        </div>
         <h1>GraceDaily</h1>
         
-        <div class="display-card">
-            <div id="verse-content">Načítám tvou cestu...</div>
+        <!-- Odkaz na živé vysílání -->
+        <a href="https://www.tvnoe.cz/" target="_blank" class="btn-link">Sledovat živé vysílání (TV Noe)</a>
+
+        <div class="guide-box">
+            <h2>Tvůj čas s Bohem</h2>
+            <p id="guide-text">Cítíš potřebu o něčem mluvit? Napiš sem své trápení nebo radost jako úmysl pro svou modlitbu. Pomohu ti ji formulovat.</p>
+            <textarea id="prayer-input" style="width:100%; background:rgba(0,0,0,0.2); color:#fff; border:1px solid #444; padding:10px; margin:10px 0; border-radius:8px;"></textarea>
+            <button class="prayer-btn" onclick="transformToPrayer()">Proměnit v modlitbu</button>
         </div>
 
-        <div class="challenge-card" id="challenge-box">
-            <p style="font-size: 0.7rem; color: var(--accent-color); text-transform: uppercase;">Výzva pro dnešní den</p>
-            <p id="challenge-content" style="margin-top:10px; font-size: 1.1rem;"></p>
-            <button class="btn-done" id="done-btn" onclick="completeChallenge()">Mám splněno!</button>
-        </div>
-
-        <!-- NOVÁ SEKCE: DUCHOVNÍ PORADNA -->
-        <div class="qa-section">
-            <p class="qa-title">Hledání odpovědi (Duchovní moudrost)</p>
-            <div class="input-row">
-                <input type="text" id="user-question" placeholder="Co tě trápí? Polož otázku tvé víře...">
-                <button class="btn-ask" onclick="askWisdom()">Odpověz</button>
-            </div>
-            <div class="answer-box" id="answer-container"></div>
-        </div>
-
-        <div class="reflection-section">
-            <p style="color: var(--text-muted); font-size: 0.85rem; font-weight:600; text-transform:uppercase; margin-bottom:10px; text-align:center;">Moje večerní vděčnost & myšlenky</p>
-            <textarea id="reflection-text" placeholder="Za co dnes můžu poděkovat? (Ukládá se automaticky...)" oninput="saveReflection()"></textarea>
-        </div>
+        <div id="prayer-result" style="display:none; padding:20px; background:rgba(74,222,128,0.05); border-radius:15px; font-style:italic;"></div>
     </div>
 
     <script>
-        const verses = [
-            {v:"Neboj se, vždyť já jsem s tebou. Nerozhlížej se úzkostlivě, já jsem tvůj Bůh.", r:"Izajáš 41:10"},
-            {v:"Pojďte ke mně, všichni, kdo se namáháte a jste obtíženi, a já vám dám odpočinout.", r:"Matouš 11:28"},
-            {v:"Hospodin je můj pastýř, nebudu mít nedostatek.", r:"Žalm 23:1"}
-        ];
-        const challenges = [
-            "Napiš někomu hezkou zprávu jen tak, abys mu zlepšil den.",
-            "Dnes se vědomě vyhni jakémukoliv stěžování si.",
-            "Zastav se dnes na 5 minut v naprostém tichu bez telefonu."
-        ];
-
-        // Databáze hlubokých odpovědí na osobní a křesťanské otázky
-        const wisdomAnswers = [
-            "„Pamatuj, že i ta nejtemnější noc končí úsvitem. Bůh tě neopustil, jen tě učí důvěřovat mu i ve tmě. Ztiš se a naslouchej.“",
-            "„Tvá hodnota nezávisí na tom, kolik toho zvládneš, ale na tom, kým jsi v Božích očích. Odpočiň si, jsi milován takový, jaký jsi.“",
-            "„Když nevíš, kudy kam, udělej jen ten nejbližší malý krok s láskou a čistým svědomím. Cesta se ti ukáže sama.“",
-            "„Odpověď na tvé trápení často nepřichází v hřmění, ale v tichém, jemném hlasu uvnitř tvého srdce. Najdi si dnes chvíli na modlitbu a klid.“",
-            "„Každá těžkost, kterou právě prožíváš, formuje tvůj charakter. Nic není zbytečné, i když to tak teď může vypadat. Vytrvej.“",
-            "„Trpělivost je klíčem k duchovnímu míru. Nemusíš mít odpověď na všechno hned teď. Odevzdej to, co nemůžeš změnit, a uleví se ti.“"
-        ];
-
-        function getDailyIdx(arr, key) {
-            const today = new Date();
-            const dateStr = today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
-            let state = JSON.parse(localStorage.getItem(key) || "{}");
-            if (state.date !== dateStr) {
-                let used = state.used || [];
-                if (used.length >= arr.length) used = [];
-                let available = arr.map((_, i) => i).filter(i => !used.includes(i));
-                let newIdx = available[Math.floor(Math.random() * available.length)];
-                used.push(newIdx);
-                state = { date: dateStr, idx: newIdx, used: used, completed: false };
-                localStorage.setItem(key, JSON.stringify(state));
-            }
-            return state;
-        }
-
-        const verseState = getDailyIdx(verses, 'vState');
-        const challengeState = getDailyIdx(challenges, 'cState');
-
-        document.getElementById('verse-content').innerHTML = `<p class="verse-text">„${verses[verseState.idx].v}“</p><p class="verse-ref">${verses[verseState.idx].r}</p>`;
-        document.getElementById('challenge-content').innerText = challenges[challengeState.idx];
-
-        if (challengeState.completed) markAsDone();
-
-        function completeChallenge() {
-            let state = JSON.parse(localStorage.getItem('cState'));
-            state.completed = true;
-            localStorage.setItem('cState', JSON.stringify(state));
-            markAsDone();
-        }
-
-        function markAsDone() {
-            document.getElementById('challenge-box').classList.add('done');
-            document.getElementById('challenge-content').innerHTML = "<strong>Skvělá práce! Výzva splněna.</strong> 🎉";
-            document.getElementById('done-btn').style.display = 'none';
-        }
-
-        // Funkce pro simulaci odpovědi
-        function askWisdom() {
-            const q = document.getElementById('user-question').value.trim();
-            if(!q) return;
-            
-            const box = document.getElementById('answer-container');
-            box.style.display = "block";
-            box.innerText = "Hledám moudrost v písmu...";
-            
-            setTimeout(() => {
-                const randomAns = wisdomAnswers[Math.floor(Math.random() * wisdomAnswers.length)];
-                box.innerText = randomAns;
-            }, 1000);
-        }
-
-        const todayStr = new Date().toDateString();
-        document.getElementById('reflection-text').value = localStorage.getItem('ref_' + todayStr) || "";
-        function saveReflection() {
-            localStorage.setItem('ref_' + todayStr, document.getElementById('reflection-text').value);
+        function transformToPrayer() {
+            const input = document.getElementById('prayer-input').value;
+            if(!input) return;
+            const res = document.getElementById('prayer-result');
+            res.style.display = "block";
+            res.innerHTML = `<strong>Tvá modlitba:</strong><br><br>„Pane, přicházím k Tobě s tím, co mám v srdci: ${input}. Prosím, dej mi sílu to nést, veď mé kroky a naplň mě svým pokojem. Amen.“<br><br><small><em>(Přečti si nyní tato slova pomalu nahlas.)</em></small>`;
         }
     </script>
 </body>
