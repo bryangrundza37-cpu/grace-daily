@@ -3,99 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GraceDaily | Světlo pro tvou duši</title>
+    <title>GraceDaily | Tvá denní cesta</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-color: #0b130e; --card-bg: #142219; --accent-color: #4ade80; --text-main: #f3f4f6; --text-muted: #9ca3af; }
+        :root { --bg-color: #0b130e; --card-bg: #142219; --accent-color: #4ade80; --text-main: #f3f4f6; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 20px; }
         .container { width: 100%; max-width: 650px; text-align: center; }
-        .cross-icon { color: var(--accent-color); margin-bottom: 10px; opacity: 0.9; }
-        h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 20px; color: var(--accent-color); }
-        .mood-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 25px; }
-        .mood-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: var(--text-main); padding: 10px 5px; border-radius: 8px; cursor: pointer; font-size: 0.75rem; }
-        .mood-btn.active { background: var(--accent-color); color: #000; font-weight: 600; }
-        .display-card { background: var(--card-bg); border-radius: 20px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); margin-bottom: 20px; }
-        .verse-text { font-size: 1.1rem; line-height: 1.6; margin-bottom: 15px; }
-        .verse-ref { color: var(--accent-color); font-weight: 600; margin-bottom: 20px; font-size: 0.9rem; }
-        .challenge-card { background: rgba(74, 222, 128, 0.05); border: 1px solid var(--accent-color); border-radius: 15px; padding: 15px; }
-        .challenge-title { color: var(--accent-color); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; margin-bottom: 8px; }
+        .cross-icon { color: var(--accent-color); margin-bottom: 10px; }
+        h1 { font-size: 2rem; margin-bottom: 20px; color: var(--accent-color); }
+        .display-card { background: var(--card-bg); border-radius: 20px; padding: 30px; margin-bottom: 20px; }
+        .verse-text { font-size: 1.2rem; margin-bottom: 15px; font-style: italic; }
+        .verse-ref { color: var(--accent-color); font-weight: 700; margin-bottom: 20px; }
+        .challenge-card { border: 1px solid var(--accent-color); border-radius: 15px; padding: 20px; background: rgba(74, 222, 128, 0.05); }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="cross-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="2" x2="12" y2="22"></line>
-                <line x1="7" y1="8" x2="17" y2="8"></line>
-            </svg>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22"/><line x1="7" y1="8" x2="17" y2="8"/></svg>
         </div>
         <h1>GraceDaily</h1>
-        <div class="mood-container">
-            <button class="mood-btn" onclick="show('strach')">Strach</button>
-            <button class="mood-btn" onclick="show('unava')">Únava</button>
-            <button class="mood-btn" onclick="show('samota')">Samota</button>
-            <button class="mood-btn" onclick="show('vdecnost')">Vděčnost</button>
-            <button class="mood-btn" onclick="show('smutek')">Smutek</button>
-            <button class="mood-btn" onclick="show('hnev')">Hněv</button>
-            <button class="mood-btn" onclick="show('radost')">Radost</button>
-            <button class="mood-btn" onclick="show('pochybnost')">Pochyb</button>
-        </div>
-        <div class="display-card" id="card">
-            <div id="content"><p class="verse-text">Vyber náladu a najdi svůj verš...</p></div>
+        <div class="display-card">
+            <div id="verse-content">Načítám tvou cestu...</div>
         </div>
         <div class="challenge-card">
-            <p class="challenge-title">Výzva pro dnešní den</p>
-            <p id="challenge">Zvol náladu a získej úkol pro svůj klid.</p>
+            <p style="font-size: 0.7rem; color: var(--accent-color); text-transform: uppercase;">Výzva pro dnešní den</p>
+            <p id="challenge-content" style="margin-top:10px;">Načítám výzvu...</p>
         </div>
     </div>
+
     <script>
-        const library = {
-            strach: [{v:"Neboj se, vždyť já jsem s tebou.", r:"Izajáš 41:10"}, {v:"Hospodin je můj pastýř, nebudu mít nedostatek.", r:"Žalm 23:1"}],
-            unava: [{v:"Pojďte ke mně všichni, kdo se namáháte.", r:"Matouš 11:28"}, {v:"Kdo skládá naději v Hospodina, nabývá nové síly.", r:"Izajáš 40:31"}],
-            samota: [{v:"Hospodin sám půjde před tebou.", r:"Dt 31:8"}, {v:"Jsem s vámi po všechny dny.", r:"Matouš 28:20"}],
-            vdecnost: [{v:"Ve všem vzdávejte díky.", r:"1. Tes 5:18"}, {v:"Oslavujte Hospodina, neboť je dobrý.", r:"Žalm 106:1"}],
-            smutek: [{v:"Blízko je Hospodin těm, kdo jsou zkrušeni v srdci.", r:"Žalm 34:19"}, {v:"On otře každou slzu z očí.", r:"Zjevení 21:4"}],
-            hnev: [{v:"Buďte pomalí k hněvu.", r:"Jakub 1:19"}, {v:"Nenech slunce zapadnout nad svým hněvem.", r:"Efezským 4:26"}],
-            radost: [{v:"Radujte se v Pánu vždycky.", r:"Filipským 4:4"}, {v:"V tvé přítomnosti je plnost radosti.", r:"Žalm 16:11"}],
-            pochybnost: [{v:"Věřím, pomoz mé pochybnosti!", r:"Marek 9:24"}, {v:"Hledejte a naleznete.", r:"Matouš 7:7"}]
-        };
-
-        // Rozšířená databáze 25 úkolů
-        const challenges = [
-            "Napiš někomu hezkou zprávu jen tak, abys mu zlepšil den.",
-            "Pět minut jen v tichu dýchej a za nic se v tu chvíli nehoň.",
-            "Usměj se dnes upřímně na jednoho cizího člověka, kterého potkáš.",
-            "Poděkuj Bohu nebo osudu za tři konkrétní maličkosti, co dnes máš.",
-            "Odpusť v duchu někomu věc, která tě v poslední době mrzela.",
-            "Udělej dnes jeden drobný dobrý skutek v naprosté tajnosti.",
-            "Zavolej dnes někomu z rodiny, s kým jsi delší dobu nemluvil.",
-            "Dnes se vědomě vyhni jakémukoliv stěžování si na počasí, únavu nebo lidi.",
-            "Daruj dnes někomu upřímný, konkrétní kompliment.",
-            "Pusť dnes v dopravě nebo ve frontě někoho před sebe s milým gestem.",
-            "Ukliď si jedno místo pracovní plochy nebo pokoje jako symbol čisté mysli.",
-            "Věnuj dnes 10 minut četbě nebo poslechu něčeho, co tě duchovně posune.",
-            "Napiš si na papír jednu věc, která tě trápí, a pak ten papír zahoď.",
-            "Pomoz dnes někomu s něčím, i když tě o to sám přímo nepožádá.",
-            "Předtím než dnes odpovíš na něco nepříjemného, udělej tři hluboké nádechy.",
-            "Vzpomeň si na člověka, který ti v životě pomohl, a v duchu mu poděkuj.",
-            "Strávit dnes alespoň 15 minut na čerstvém vzduchu bez koukání do mobilu.",
-            "Připrav nebo kup dnes kávu/čaj pro někoho dalšího v tvém okolí.",
-            "Dnes udělej vědomě radost sám sobě něčím malým a zdravým.",
-            "Věnuj dnes večer chvíli rekapitulaci dne a najdi v něm ten nejhezčí moment.",
-            "Pomodli se dnes nebo vyšli dobrou myšlenku za někoho, koho nemáš příliš v lásce.",
-            "Pošli někomu starou společnou fotku s textem: 'Vzpomněl jsem si na naše super časy.'",
-            "Dnes o nikom nemluv v jeho nepřítomnosti negativně.",
-            "Poděkuj dnes osobě, která ti prodává jídlo, kávu nebo lístek, obzvlášť mile.",
-            "Napiš si tři své vlastnosti, za které jsi na sebe upřímně hrdý."
+        const verses = [
+            {v:"Neboj se, vždyť já jsem s tebou.", r:"Izajáš 41:10"},
+            {v:"Pojďte ke mně všichni, kdo se namáháte.", r:"Matouš 11:28"},
+            {v:"Hospodin je můj pastýř.", r:"Žalm 23:1"},
+            {v:"Všechno mohu v Kristu, který mi dává sílu.", r:"Filipským 4:13"},
+            {v:"Blízko je Hospodin těm, kdo jsou zkrušeni v srdci.", r:"Žalm 34:19"}
         ];
+        const challenges = ["Napiš někomu hezkou zprávu.", "Dnes se vyhni stěžování.", "Zastav se na 5 minut v tichu.", "Udělej dnes tajný dobrý skutek.", "Poděkuj za tři věci."];
 
-        function show(mood) {
-            const items = library[mood];
-            const item = items[Math.floor(Math.random() * items.length)];
-            document.getElementById('content').innerHTML = `<p class="verse-text">„${item.v}“</p><p class="verse-ref">${item.r}</p>`;
-            document.getElementById('challenge').innerText = challenges[Math.floor(Math.random() * challenges.length)];
+        function getDailyItem(arr, key) {
+            let used = JSON.parse(localStorage.getItem(key) || "[]");
+            if (used.length >= arr.length) used = []; // Reset, pokud jsme vyčerpali vše
+            
+            let available = arr.filter((_, idx) => !used.includes(idx));
+            let selectedIdx = arr.indexOf(available[0]);
+            
+            used.push(selectedIdx);
+            localStorage.setItem(key, JSON.stringify(used));
+            return arr[selectedIdx];
         }
+
+        const dailyVerse = getDailyItem(verses, 'usedVerses');
+        const dailyChallenge = getDailyItem(challenges, 'usedChallenges');
+
+        document.getElementById('verse-content').innerHTML = `<p class="verse-text">„${dailyVerse.v}“</p><p class="verse-ref">${dailyVerse.r}</p>`;
+        document.getElementById('challenge-content').innerText = dailyChallenge;
     </script>
 </body>
 </html>
