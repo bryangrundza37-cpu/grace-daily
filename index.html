@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GraceDaily | Tvá kompletní cesta</title>
+    <title>GraceDaily | Křesťanský nástroj pro každý den</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { --bg-color: #0b130e; --card-bg: #142219; --accent-color: #4ade80; --text-main: #f3f4f6; --text-muted: #9ca3af; }
@@ -11,78 +11,79 @@
         body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 20px; }
         .container { width: 100%; max-width: 650px; text-align: center; }
         .cross-icon { color: var(--accent-color); margin-bottom: 10px; }
-        h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 20px; color: var(--accent-color); letter-spacing: -0.5px; }
+        h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 5px; color: var(--accent-color); letter-spacing: -0.5px; }
+        .subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px; }
         
-        /* 1. KARTA S VERŠEM */
-        .display-card { background: var(--card-bg); border-radius: 20px; padding: 30px; margin-bottom: 20px; box-shadow: 0 10px 35px rgba(0,0,0,0.4); border: 1px solid rgba(74, 222, 128, 0.05); }
-        .verse-text { font-size: 1.25rem; margin-bottom: 15px; font-style: italic; line-height: 1.6; color: #fff; }
-        .verse-ref { color: var(--accent-color); font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
+        /* SDRUŽENÉ KARTY */
+        .section-card { background: var(--card-bg); border-radius: 20px; padding: 25px; margin-bottom: 20px; box-shadow: 0 10px 35px rgba(0,0,0,0.4); border: 1px solid rgba(74, 222, 128, 0.05); text-align: left; }
+        .section-title { color: var(--accent-color); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px; text-align: center; }
+
+        .verse-text { font-size: 1.2rem; margin-bottom: 12px; font-style: italic; line-height: 1.6; color: #fff; text-align: center; }
+        .verse-ref { color: var(--accent-color); font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
         
-        /* 2. DENNÍ VÝZVA */
-        .challenge-card { border: 1px solid var(--accent-color); border-radius: 15px; padding: 20px; background: rgba(74, 222, 128, 0.03); margin-bottom: 20px; transition: all 0.4s ease; }
-        .challenge-card.done { border-color: #22c55e; background: rgba(34, 197, 94, 0.12); }
-        .btn-done { background: var(--accent-color); color: #000; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 15px; }
-        .btn-done:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(74, 222, 128, 0.3); }
+        .challenge-text { font-size: 1.1rem; font-weight: 600; text-align: center; margin: 10px 0; }
+        .btn-action { display: block; width: 100%; background: var(--accent-color); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; text-align: center; transition: 0.2s; text-decoration: none; }
+        .btn-action:hover { transform: translateY(-1px); box-shadow: 0 5px 15px rgba(74, 222, 128, 0.25); }
+        
+        /* DUCHOVNÍ LÉKÁRNIČKA */
+        .pill-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
+        .btn-pill { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 0.9rem; font-weight: 600; text-align: center; transition: 0.2s; }
+        .btn-pill:hover { border-color: var(--accent-color); background: rgba(74, 222, 128, 0.05); }
+        .medicine-result { background: rgba(0,0,0,0.2); border-left: 3px solid var(--accent-color); padding: 15px; border-radius: 8px; font-style: italic; display: none; line-height: 1.5; }
 
-        /* TELEVIZE ODKAZ */
-        .btn-link { display: block; width: 100%; padding: 14px; background: rgba(74, 222, 128, 0.08); border: 1px solid rgba(74, 222, 128, 0.3); border-radius: 12px; color: var(--accent-color); text-decoration: none; text-align: center; font-weight: 600; margin-bottom: 20px; transition: 0.2s; }
-        .btn-link:hover { background: rgba(74, 222, 128, 0.15); }
+        /* ROZCESTNÍK ODKAZŮ */
+        .link-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .btn-outline-link { display: block; padding: 12px 5px; background: rgba(74, 222, 128, 0.05); border: 1px solid rgba(74, 222, 128, 0.2); border-radius: 10px; color: var(--accent-color); text-decoration: none; text-align: center; font-size: 0.85rem; font-weight: 600; transition: 0.2s; }
+        .btn-outline-link:hover { background: rgba(74, 222, 128, 0.12); }
 
-        /* 3. ŽIVÝ OTEVŘENÝ CHAT */
-        .chat-section { background: rgba(20, 34, 25, 0.7); border: 1px solid rgba(74, 222, 128, 0.1); border-radius: 15px; padding: 20px; text-align: left; margin-bottom: 20px; }
-        .chat-box { height: 250px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.2); border-radius: 10px; padding: 15px; margin-bottom: 15px; display: flex; flex-direction: column; gap: 10px; }
-        .msg { max-width: 85%; padding: 10px 14px; border-radius: 12px; font-size: 0.95rem; line-height: 1.4; }
-        .msg.user { background: rgba(255,255,255,0.08); align-self: flex-end; border-bottom-right-radius: 2px; }
-        .msg.ai { background: rgba(74, 222, 128, 0.1); border-left: 3px solid var(--accent-color); align-self: flex-start; border-bottom-left-radius: 2px; }
-        .chat-input-row { display: flex; gap: 10px; }
-        .chat-input { flex: 1; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; color: #fff; font-size: 0.95rem; outline: none; }
-        .chat-input:focus { border-color: var(--accent-color); }
-        .btn-send { background: var(--accent-color); color: #000; border: none; padding: 0 20px; border-radius: 8px; font-weight: 700; cursor: pointer; }
-
-        /* 4. VEČERNÍ REFLEXE */
-        .reflection-section { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 15px; padding: 20px; text-align: left; }
         textarea { width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; color: var(--text-main); font-size: 0.95rem; resize: none; min-height: 80px; outline: none; }
         textarea:focus { border-color: var(--accent-color); }
+        .done-box { border-color: #22c55e; background: rgba(34, 197, 94, 0.08); text-align: center; padding: 10px; border-radius: 10px; border: 1px solid #22c55e; font-weight: 600; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="cross-icon">
-            <svg width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="7" y1="8" x2="17" y2="8"/></svg>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="7" y1="8" x2="17" y2="8"/></svg>
         </div>
         <h1>GraceDaily</h1>
+        <div class="subtitle">Tvůj každodenní křesťanský doprovod a průvodce</div>
         
-        <!-- VERŠ -->
-        <div class="display-card">
-            <div id="verse-content">Načítám tvou cestu...</div>
+        <div class="section-card">
+            <p class="section-title">Slovo Boží na dnešní den</p>
+            <div id="verse-content">Načítám...</div>
         </div>
 
-        <!-- VÝZVA -->
-        <div class="challenge-card" id="challenge-box">
-            <p style="font-size: 0.75rem; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px;">Výzva pro dnešní den</p>
-            <p id="challenge-content" style="margin-top:10px; font-size: 1.15rem; font-weight: 600;"></p>
-            <button class="btn-done" id="done-btn" onclick="completeChallenge()">Mám splněno!</button>
+        <div class="section-card" id="challenge-box">
+            <p class="section-title">Dnešní křesťanská výzva</p>
+            <p id="challenge-content" class="challenge-text"></p>
+            <button class="btn-action" id="done-btn" onclick="completeChallenge()">Mám splněno!</button>
         </div>
 
-        <!-- TV NOE VYSÍLÁNÍ -->
-        <a href="https://www.tvnoe.cz/live" target="_blank" class="btn-link">📺 Spustit živé vysílání TV Noe</a>
-
-        <!-- ROZHOVOR / ASISTENT -->
-        <div class="chat-section">
-            <p style="color: var(--accent-color); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; text-align: center;">Tvůj osobní asistent & průvodce</p>
-            <div class="chat-box" id="chat-stream">
-                <div class="msg ai">Ahoj! Jsem tvůj průvodce. Můžeš se mě zeptat na cokoliv – ať už tě zajímá víra, konkrétní verše z Bible, tvůj osobní život, nebo potřebuješ poradit se školou a prací. O čem si popovídáme?</div>
+        <div class="section-card">
+            <p class="section-title">Duchovní lékárnička (Rychlá pomoc pro duši)</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; text-align: center;">Vyber si, co právě teď prožíváš ve svém srdci:</p>
+            <div class="pill-grid">
+                <button class="btn-pill" onclick="openMedicine('empty')">Cítím se prázdný / sám</button>
+                <button class="btn-pill" onclick="openMedicine('fear')">Mám strach / úzkost</button>
+                <button class="btn-pill" onclick="openMedicine('sin')">Hledám odpuštění</button>
+                <button class="btn-pill" onclick="openMedicine('thanks')">Chci vzdát vděčnost</button>
             </div>
-            <div class="chat-input-row">
-                <input type="text" id="chat-user-message" class="chat-input" placeholder="Napiš cokoliv, co tě zajímá..." onkeypress="handleChatKey(event)">
-                <button class="btn-send" onclick="sendMessageToAI()">Odeslat</button>
+            <div id="medicine-result" class="medicine-result"></div>
+        </div>
+
+        <div class="section-card">
+            <p class="section-title">Užitečné křesťanské nástroje online</p>
+            <div class="link-grid">
+                <a href="https://www.tvnoe.cz/live" target="_blank" class="btn-outline-link">📺 TV Noe Živě</a>
+                <a href="https://www.biblenet.cz/" target="_blank" class="btn-outline-link">📖 Bible Online</a>
+                <a href="https://www.vircan.cz/" target="_blank" class="btn-outline-link">🙏 Denní Liturgie</a>
             </div>
         </div>
 
-        <!-- VEČERNÍ VDĚČNOST -->
-        <div class="reflection-section">
-            <p style="color: var(--text-muted); font-size: 0.8rem; font-weight:600; text-transform:uppercase; margin-bottom:10px; text-align:center;">Moje večerní vděčnost & myšlenky</p>
-            <textarea id="reflection-text" placeholder="Za co dnes můžu poděkovat? (Ukládá se automaticky do telefonu...)" oninput="saveReflection()"></textarea>
+        <div class="section-card">
+            <p class="section-title">Moje večerní ztišení & modlitební úmysly</p>
+            <textarea id="reflection-text" placeholder="Za co nebo za koho se dnes chceš modlit? Co chceš odevzdat do Božího pokoje? (Ukládá se bezpečně do tvého telefonu...)" oninput="saveReflection()"></textarea>
         </div>
     </div>
 
@@ -96,8 +97,16 @@
         const challenges = [
             "Napiš někomu upřímnou zprávu a oceň jeho přítomnost ve tvém životě.",
             "Dnes se vědomě vyhni jakémukoliv stěžování si nebo posuzování druhých.",
-            "Zastav se dnes na 5 minut v naprostém tichu, zavři oči a zklidni svou mysl."
+            "Zastav se dnes na 5 minut v naprostém tichu, zavři oči a vnímej Boží blízkost."
         ];
+
+        // DATABÁZE PRO DUCHOVNÍ LÉKÁRNIČKU
+        const medicineData = {
+            empty: "<strong>Povzbuzení:</strong> U Boha máš šanci úplně vždycky. Ta prázdnota, kterou prožíváš, je prostor, který chce Bůh naplnit svou láskou. Nejsi na to sám.<br><br><strong>Verš k zamyšlení:</strong> „Hospodin je blízko těm, kdo mají zkroušené srdce...“ (Žalm 34:19)<br><br><strong>Modlitba:</strong> <em>Pane, cítím se prázdný a sám. Přijď do mého srdce, naplň ho svou přítomností a dej mi pocítit, že mě miluješ přesně takového, jaký jsem. Amen.</em>",
+            fear: "<strong>Povzbuzení:</strong> Strach a úzkost nás často oslepují, ale pamatuj, že budoucnost je v dobrých rukou. Nemusíš všechno zvládnout sám.<br><br><strong>Verš k zamyšlení:</strong> „Svou starost hoďte na Hospodina, on se o vás postará.“ (1. Petrova 5:7)<br><br><strong>Modlitba:</strong> <em>Pane, odevzdávám ti svůj strach a neklid. Daruj mé mysli Tvůj hluboký pokoj, abych dokázal s důvěrou kráčet dnešním dnem. Amen.</em>",
+            sin: "<strong>Povzbuzení:</strong> Žádná chyba ani selhání není větší než Boží milosrdenství. Pokud lituješ, cesta je okamžitě volná. Máš čistý štít.<br><br><strong>Verš k zamyšlení:</strong> „Jestliže vyznáváme své hříchy, on je věrný a spravedlivý, aby nám hříchy odpustil.“ (1. Janův 1:9)<br><br><strong>Modlitba:</strong> <em>Pane, lituji svých chyb a slabostí. Děkuji ti za tvé nekonečné odpuštění a prosím o sílu začít dnes znovu a lépe. Amen.</em>",
+            thanks: "<strong>Povzbuzení:</strong> Vděčnost otevírá oči pro věci, které bereme jako samozřejmost. Radost sdílená s Bohem roste.<br><br><strong>Verš k zamyšlení:</strong> „Chvalte Hospodina, neboť je dobrý, jeho milosrdenství je věčné.“ (Žalm 136:1)<br><br><strong>Modlitba:</strong> <em>Děkuji ti, Pane, za dar dnešního dne, za lidi kolem mě a za každé malé požehnání, které mi posíláš do cesty. Amen.</em>"
+        };
 
         function getDailyIdx(arr, key) {
             const today = new Date();
@@ -131,56 +140,16 @@
         }
 
         function markAsDone() {
-            document.getElementById('challenge-box').classList.add('done');
-            document.getElementById('challenge-content').innerHTML = "<strong>Skvělá práce! Výzva splněna.</strong> 🎉";
-            document.getElementById('done-btn').style.display = 'none';
+            const box = document.getElementById('challenge-box');
+            box.innerHTML = `<p class="section-title">Dnešní křesťanská výzva</p><div class="done-box">✨ Výzva dne splněna s láskou!</div>`;
         }
 
-        // INTELIGENTNÍ OTEVŘENÝ CHAT
-        function handleChatKey(e) { if(e.key === 'Enter') sendMessageToAI(); }
-
-        function sendMessageToAI() {
-            const inputEl = document.getElementById('chat-user-message');
-            const messageText = inputEl.value.trim();
-            if(!messageText) return;
-
-            appendMessage(messageText, 'user');
-            inputEl.value = "";
-
-            const loadingMsg = appendMessage("Přemýšlím...", 'ai');
-
-            setTimeout(() => {
-                loadingMsg.remove();
-                const lowerText = messageText.toLowerCase();
-                let response = "";
-
-                // NOVÁ UPRAVENÁ LOGIKA DETEKCE DOTAZŮ
-                if (lowerText.includes("verš") || lowerText.includes("vers") || lowerText.includes("bible") || lowerText.includes("bible") || lowerText.includes("citát") || lowerText.includes("citat")) {
-                    response = "Jedním z vůbec nejznámějších a nejhlubších veršů v celé Bibli je Jan 3:16: „Neboť Bůh tak miloval svět, že dal svého jediného Syna, aby žádný, kdo v něho věří, nezahynul, ale měl život věčný.“ Dalším krásným je Žalm 23: „Hospodin je můj pastýř, nebudu mít nedostatek.“ Pomohl ti tento výběr, nebo hledáš nějaký konkrétní na povzbuzení?";
-                } else if (lowerText.includes("prác") || lowerText.includes("robot") || lowerText.includes("skol") || lowerText.includes("škol") || lowerText.includes("úkol")) {
-                    response = "Rozumím ti. Každodenní povinnosti ve škole nebo práci dokážou člověka unavit. Nejdůležitější je rozdělit si práci na menší části, dělat pravidelné přestávky a hlavně netlačit na pilu. Jak se ti dnes tvoje úkoly daří zvládat?";
-                } else if (lowerText.includes("život") || lowerText.includes("zivot") || lowerText.includes("lidi") || lowerText.includes("člověk") || lowerText.includes("kamarád")) {
-                    response = "Život i vztahy s lidmi nám občas přináší těžké momenty a výzvy. Důležité je neztrácet naději, nebrat si všechno osobně a dělat malé pozitivní kroky každý den. Chceš si o té situaci promluvit podrobněji?";
-                } else if (lowerText.includes("vír") || lowerText.includes("vir") || lowerText.includes("bůh") || lowerText.includes("buh") || lowerText.includes("kostel") || lowerText.includes("křesť")) {
-                    response = "Víra je osobní cesta, která roste skrze každodenní drobné krůčky a ztišení. Není to o tom být dokonalý, ale o upřímné snaze směřovat k dobru. Co pro tebe víra v tuhle chvíli znamená?";
-                } else if (lowerText.includes("klid") || lowerText.includes("pokoj") || lowerText.includes("strach") || lowerText.includes("úzkost")) {
-                    response = "Když tě přepadne neklid nebo strach, zkus se na minutu zastavit, zhluboka se nadechnout a soustředit se pouze na přítomný okamžik. Budoucnost nemáme plně pod kontrolou, ale teď jsi v bezpečí. Co ti obvykle pomáhá hlavu nejvíc zklidnit?";
-                } else {
-                    response = "Děkuji, že mi to píšeš! Jsem tu od toho, abych tě doprovázel a probral s tebou cokoli, co tě zrovna napadne nebo co prožíváš. Řekni mi o tom klidně víc, poslouchám.";
-                }
-
-                appendMessage(response, 'ai');
-            }, 1000);
-        }
-
-        function appendMessage(text, side) {
-            const stream = document.getElementById('chat-stream');
-            const el = document.createElement('div');
-            el.className = `msg ${side}`;
-            el.innerText = text;
-            stream.appendChild(el);
-            stream.scrollTop = stream.scrollHeight;
-            return el;
+        // OBSLUHA LÉKÁRNIČKY
+        function openMedicine(type) {
+            const resultBox = document.getElementById('medicine-result');
+            resultBox.style.display = "block";
+            resultBox.innerHTML = medicineData[type];
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
         // VEČERNÍ REFLEXE
