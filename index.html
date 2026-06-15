@@ -71,7 +71,7 @@
         <div class="chat-section">
             <p style="color: var(--accent-color); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; text-align: center;">Tvůj osobní asistent & průvodce</p>
             <div class="chat-box" id="chat-stream">
-                <div class="msg ai">Ahoj! Jsem tvůj průvodce na dnešní den. Můžeš se mě zeptat na cokoliv – ať už tě zajímá víra, osobní život, nebo potřebuješ poradit s čímkoliv jiným. O čem si popovídáme?</div>
+                <div class="msg ai">Ahoj! Jsem tvůj průvodce. Můžeš se mě zeptat na cokoliv – ať už tě zajímá víra, konkrétní verše z Bible, tvůj osobní život, nebo potřebuješ poradit se školou a prací. O čem si popovídáme?</div>
             </div>
             <div class="chat-input-row">
                 <input type="text" id="chat-user-message" class="chat-input" placeholder="Napiš cokoliv, co tě zajímá..." onkeypress="handleChatKey(event)">
@@ -98,14 +98,6 @@
             "Dnes se vědomě vyhni jakémukoliv stěžování si nebo posuzování druhých.",
             "Zastav se dnes na 5 minut v naprostém tichu, zavři oči a zklidni svou mysl."
         ];
-
-        // Databáze pro otevřený chat (inteligentní odpovědi)
-        const generalReplies = {
-            zivot: "Život přináší spoustu výzev. Důležité je neztrácet naději a dělat malé kroky každý den. Jak ti v tomhle můžu dnes nejlépe pomoct?",
-            prace: "Když jde o práci nebo povinnosti, základem je najít správnou rovnováhu, aby ti zbýval čas i na klid a lidi kolem tebe. Co konkrétně tě v práci zaměstnává?",
-            vira: "Víra je jako sval – roste s tím, jak ji používáš v běžných dnech. Není to o dokonalosti, ale o upřímné snaze jít správným směrem.",
-            klid: "Klid začíná tím, že na chvíli vypneš okolní hluk a prostě jen jsi. Dnešní výzva ti s tím může skvěle pomoct, zkus ji využít."
-        };
 
         function getDailyIdx(arr, key) {
             const today = new Date();
@@ -144,7 +136,7 @@
             document.getElementById('done-btn').style.display = 'none';
         }
 
-        // OTEVŘENÝ CHAT
+        // INTELIGENTNÍ OTEVŘENÝ CHAT
         function handleChatKey(e) { if(e.key === 'Enter') sendMessageToAI(); }
 
         function sendMessageToAI() {
@@ -162,16 +154,19 @@
                 const lowerText = messageText.toLowerCase();
                 let response = "";
 
-                if (lowerText.includes("prác") || lowerText.includes("robot") || lowerText.includes("skol") || lowerText.includes("škol")) {
-                    response = "Rozumím. Každodenní úkoly, ať už v práci nebo ve škole, dokážou unavit. Důležité je rozdělit si věci na menší části a nezapomínat na přestávky. Jak to dnes zvládáš?";
-                } else if (lowerText.includes("život") || lowerText.includes("zivot") || lowerText.includes("lidi") || lowerText.includes("člověk")) {
-                    response = generalReplies.zivot;
-                } else if (lowerText.includes("vír") || lowerText.includes("vir") || lowerText.includes("bůh") || lowerText.includes("buh") || lowerText.includes("kostel")) {
-                    response = generalReplies.vira;
-                } else if (lowerText.includes("klid") || lowerText.includes("pokoj") || lowerText.includes("strach")) {
-                    response = generalReplies.klid;
+                // NOVÁ UPRAVENÁ LOGIKA DETEKCE DOTAZŮ
+                if (lowerText.includes("verš") || lowerText.includes("vers") || lowerText.includes("bible") || lowerText.includes("bible") || lowerText.includes("citát") || lowerText.includes("citat")) {
+                    response = "Jedním z vůbec nejznámějších a nejhlubších veršů v celé Bibli je Jan 3:16: „Neboť Bůh tak miloval svět, že dal svého jediného Syna, aby žádný, kdo v něho věří, nezahynul, ale měl život věčný.“ Dalším krásným je Žalm 23: „Hospodin je můj pastýř, nebudu mít nedostatek.“ Pomohl ti tento výběr, nebo hledáš nějaký konkrétní na povzbuzení?";
+                } else if (lowerText.includes("prác") || lowerText.includes("robot") || lowerText.includes("skol") || lowerText.includes("škol") || lowerText.includes("úkol")) {
+                    response = "Rozumím ti. Každodenní povinnosti ve škole nebo práci dokážou člověka unavit. Nejdůležitější je rozdělit si práci na menší části, dělat pravidelné přestávky a hlavně netlačit na pilu. Jak se ti dnes tvoje úkoly daří zvládat?";
+                } else if (lowerText.includes("život") || lowerText.includes("zivot") || lowerText.includes("lidi") || lowerText.includes("člověk") || lowerText.includes("kamarád")) {
+                    response = "Život i vztahy s lidmi nám občas přináší těžké momenty a výzvy. Důležité je neztrácet naději, nebrat si všechno osobně a dělat malé pozitivní kroky každý den. Chceš si o té situaci promluvit podrobněji?";
+                } else if (lowerText.includes("vír") || lowerText.includes("vir") || lowerText.includes("bůh") || lowerText.includes("buh") || lowerText.includes("kostel") || lowerText.includes("křesť")) {
+                    response = "Víra je osobní cesta, která roste skrze každodenní drobné krůčky a ztišení. Není to o tom být dokonalý, ale o upřímné snaze směřovat k dobru. Co pro tebe víra v tuhle chvíli znamená?";
+                } else if (lowerText.includes("klid") || lowerText.includes("pokoj") || lowerText.includes("strach") || lowerText.includes("úzkost")) {
+                    response = "Když tě přepadne neklid nebo strach, zkus se na minutu zastavit, zhluboka se nadechnout a soustředit se pouze na přítomný okamžik. Budoucnost nemáme plně pod kontrolou, ale teď jsi v bezpečí. Co ti obvykle pomáhá hlavu nejvíc zklidnit?";
                 } else {
-                    response = "To zní zajímavě! Jsem tu od toho, abych tě doprovázel a probral s tebou cokoli, co tě napadne. Řekni mi o tom klidně víc, jak to vidíš ty?";
+                    response = "Děkuji, že mi to píšeš! Jsem tu od toho, abych tě doprovázel a probral s tebou cokoli, co tě zrovna napadne nebo co prožíváš. Řekni mi o tom klidně víc, poslouchám.";
                 }
 
                 appendMessage(response, 'ai');
