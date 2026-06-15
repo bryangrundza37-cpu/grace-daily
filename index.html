@@ -3,85 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameCompass | Tvůj herní průvodce</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>GameCompass | Tvůj herní HUB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --dark: #0f172a; --card: #1e293b; --accent: #38bdf8; --text: #f1f5f9; }
-        body { background-color: var(--dark); color: var(--text); font-family: 'Inter', sans-serif; margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .container { width: 100%; max-width: 500px; text-align: center; }
-        h1 { font-size: 2rem; margin-bottom: 5px; color: var(--accent); font-weight: 800; }
-        .subtitle { color: #64748b; font-size: 0.9rem; margin-bottom: 25px; }
-        .search-box { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #334155; background: var(--card); color: white; margin-bottom: 15px; font-size: 1rem; box-sizing: border-box; outline: none; text-align: center; }
-        .search-box:focus { border-color: var(--accent); }
-        .btn-search { width: 100%; padding: 15px; background: var(--accent); border: none; border-radius: 12px; color: var(--dark); font-weight: 800; cursor: pointer; transition: 0.3s; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        .btn-search:hover { filter: brightness(1.2); transform: translateY(-1px); }
-        #status-msg { margin-top: 15px; color: #94a3b8; font-size: 0.9rem; font-style: italic; }
-        #game-result { margin-top: 25px; display: none; text-align: left; }
-        .game-card { background: var(--card); border-radius: 16px; padding: 20px; border: 1px solid rgba(56, 189, 248, 0.1); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-        .game-title { font-size: 1.4rem; margin-bottom: 15px; color: #fff; text-align: center; border-bottom: 1px solid #334155; padding-bottom: 10px; }
-        .grid-links { display: flex; flex-direction: column; gap: 10px; }
-        .btn-link { display: block; width: 100%; padding: 14px; background: #334155; color: white; text-align: center; text-decoration: none; border-radius: 8px; font-weight: 600; box-sizing: border-box; transition: 0.2s; }
-        .btn-link:hover { background: #475569; border-left: 4px solid var(--accent); }
-        .btn-link.youtube { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
-        .btn-link.youtube:hover { background: rgba(239, 68, 68, 0.2); }
-        .btn-link.steam { background: rgba(56, 189, 248, 0.1); color: var(--accent); border: 1px solid rgba(56, 189, 248, 0.2); }
-        .btn-link.steam:hover { background: rgba(56, 189, 248, 0.2); }
+        :root { 
+            --bg: #090d16; 
+            --panel: #131a2b; 
+            --accent: #a855f7; 
+            --neon-green: #22c55e;
+            --text: #f8fafc; 
+            --muted: #64748b;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            min-height: 100vh; 
+            padding: 30px 20px; 
+            display: flex; 
+            justify-content: center;
+            background-image: radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.15) 0%, transparent 50%);
+        }
+
+        .container { width: 100%; max-width: 680px; }
+        
+        /* HEADER */
+        header { text-align: center; margin-bottom: 35px; }
+        h1 { font-size: 2.6rem; font-weight: 800; color: #fff; letter-spacing: -1px; margin-bottom: 8px; }
+        h1 span { color: var(--accent); text-shadow: 0 0 20px rgba(168, 85, 247, 0.6); }
+        .subtitle { color: var(--muted); font-size: 1rem; }
+
+        /* PANELY / KARTY */
+        .panel { 
+            background: var(--panel); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            border-radius: 20px; 
+            padding: 25px; 
+            margin-bottom: 25px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        /* VYHLEDÁVAČ */
+        .search-group { display: flex; gap: 12px; }
+        .search-box { 
+            flex: 1; 
+            padding: 16px 20px; 
+            border-radius: 14px; 
+            border: 1px solid rgba(255,255,255,0.1); 
+            background: rgba(0, 0, 0, 0.3); 
+            color: white; 
+            font-size: 1rem; 
+            outline: none;
+            transition: 0.3s;
+        }
+        .search-box:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(168, 85, 247, 0.2); }
+        .btn-search { 
+            padding: 0 25px; 
+            background: var(--accent); 
+            border: none; 
+            border-radius: 14px; 
+            color: white; 
+            font-weight: 800; 
+            cursor: pointer; 
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+        }
+        .btn-search:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+        /* INTEGRAL HUB WINDOW */
+        #hub-display { display: none; }
+        .hub-frame { width: 100%; height: 480px; border: none; border-radius: 14px; background: #000; margin-top: 15px; }
+
+        /* CHECKLIST / DENNÍK */
+        .section-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; color: #fff; }
+        .todo-row { display: flex; gap: 10px; margin-bottom: 15px; }
+        .todo-input { flex: 1; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; color: #fff; outline: none; }
+        .btn-add { background: var(--neon-green); color: #000; border: none; padding: 0 15px; border-radius: 10px; font-weight: 700; cursor: pointer; }
+        
+        .todo-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .todo-item { 
+            background: rgba(255,255,255,0.02); 
+            padding: 14px; 
+            border-radius: 10px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+        .todo-item.completed span { text-decoration: line-through; color: var(--muted); }
+        .todo-item input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; accent-color: var(--neon-green); }
+        .btn-del { background: transparent; border: none; color: #ef4444; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
+
+        #status-text { text-align: center; color: var(--accent); font-weight: 600; margin-bottom: 15px; display: none; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>GameCompass 🎮</h1>
-        <div class="subtitle">Tvůj okamžitý navigátor herními achievementy a návody</div>
-        
-        <input type="text" id="game-input" class="search-box" placeholder="Zadej název jakékoliv hry..." onkeypress="handleKeyPress(event)">
-        <button class="btn-search" onclick="searchGame()">Spustit vyhledávání</button>
-        
-        <div id="status-msg"></div>
+        <header>
+            <h1>Game<span>Compass</span></h1>
+            <div class="subtitle">Tvůj interaktivní herní radar a taktický deník</div>
+        </header>
 
-        <div id="game-result" class="game-card">
-            <h2 id="game-title" class="game-title"></h2>
-            <div class="grid-links">
-                <a id="achieve-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-link steam">🏆 Kompletní návod na Achievementy</a>
-                <a id="guide-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-link youtube">📺 Najít Video-návod (YouTube)</a>
-                <a id="reddit-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-link">💬 Co radí komunita na Redditu?</a>
+        <div class="panel">
+            <div class="section-title">🔍 Vyhledat hru v databázi</div>
+            <div class="search-group">
+                <input type="text" id="game-search" class="search-box" placeholder="Zadej název (např. Witcher 3, Cyberpunk...)" onkeypress="checkEnter(event)">
+                <button class="btn-search" onclick="loadGameHub()">NAČÍST</button>
             </div>
+        </div>
+
+        <div id="status-text">Generuji herní rozhraní...</div>
+
+        <div class="panel" id="hub-display">
+            <div class="section-title" id="hub-title">🎮 Herní centrum</div>
+            <iframe id="hub-iframe" class="hub-frame" src=""></iframe>
+        </div>
+
+        <div class="panel">
+            <div class="section-title">🏆 Moje aktuální herní úkoly & Achievementy</div>
+            <div class="todo-row">
+                <input type="text" id="todo-input" class="todo-input" placeholder="Co máš v plánu splnit? (např. Dokončit 5. kapitolu)">
+                <button class="btn-add" onclick="addTodo()">PŘIDAT</button>
+            </div>
+            <ul id="todo-list" class="todo-list"></ul>
         </div>
     </div>
 
     <script>
-        function handleKeyPress(e) {
-            if (e.key === 'Enter') {
-                searchGame();
-            }
+        function checkEnter(e) { if (e.key === 'Enter') loadGameHub(); }
+
+        // ŽIVÉ NAČÍTÁNÍ PŘÍMO DO STRÁNKY
+        function loadGameHub() {
+            const query = document.getElementById('game-search').value.trim();
+            const status = document.getElementById('status-text');
+            const hub = document.getElementById('hub-display');
+            const iframe = document.getElementById('hub-iframe');
+            const title = document.getElementById('hub-title');
+
+            if (!query) return;
+
+            status.style.display = "block";
+            hub.style.display = "none";
+
+            setTimeout(() => {
+                title.innerText = `🎮 Herní centrum: ${query}`;
+                
+                // Využití integrovaného herního vyhledávače DuckDuckGo s filtrem na videa/návody
+                // Funguje to jako čisté okno bez reklam přímo uvnitř tvého designu
+                iframe.src = `https://duckduckgo.com/?q=${encodeURIComponent(query)}+site%3Aign.com+OR+site%3Ayoutube.com+guide+achievements&kae=d&k9=b&kaa=p`;
+                
+                status.style.display = "none";
+                hub.style.display = "block";
+            }, 800);
         }
 
-        function searchGame() {
-            const inputEl = document.getElementById('game-input');
-            const query = inputEl.value.trim();
-            const statusMsg = document.getElementById('status-msg');
-            const resultBox = document.getElementById('game-result');
-            
-            if (!query) {
-                statusMsg.innerText = "Napiš nejdříve název hry!";
-                return;
-            }
+        // UKLÁDÁNÍ ÚKOLŮ DO TELEFONU (QUESTLOG)
+        let todos = JSON.parse(localStorage.getItem('gamer_todos')) || [];
 
-            statusMsg.innerText = "Generuji herní mapu...";
-            
-            // Nastavení textu hry do karty
-            document.getElementById('game-title').innerText = `Odkazy pro hru: ${query}`;
-            
-            // Vytvoření perfektních vyhledávacích dotazů bez chyb
-            const cleanQuery = encodeURIComponent(query);
-            
-            document.getElementById('achieve-link').href = `https://www.google.com/search?q=${cleanQuery}+achievements+guide+trophies`;
-            document.getElementById('guide-link').href = `https://www.youtube.com/results?search_query=${cleanQuery}+walkthrough+guide`;
-            document.getElementById('reddit-link').href = `https://www.google.com/search?q=${cleanQuery}+stuck+help+site:reddit.com`;
-            
-            // Zobrazení výsledku
-            statusMsg.innerText = "";
-            resultBox.style.display = 'block';
+        function renderTodos() {
+            const list = document.getElementById('todo-list');
+            list.innerHTML = "";
+            todos.forEach((todo, index) => {
+                const li = document.createElement('li');
+                li.className = `todo-item ${todo.done ? 'completed' : ''}`;
+                li.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <input type="checkbox" ${todo.done ? 'checked' : ''} onchange="toggleTodo(${index})">
+                        <span>${todo.text}</span>
+                    </div>
+                    <button class="btn-del" onclick="deleteTodo(${index})">SMAZAT</button>
+                `;
+                list.appendChild(li);
+            });
         }
+
+        function addTodo() {
+            const input = document.getElementById('todo-input');
+            const text = input.value.trim();
+            if (!text) return;
+            todos.push({ text: text, done: false });
+            input.value = "";
+            saveAndRender();
+        }
+
+        function toggleTodo(index) {
+            todos[index].done = !todos[index].done;
+            saveAndRender();
+        }
+
+        function deleteTodo(index) {
+            todos.splice(index, 1);
+            saveAndRender();
+        }
+
+        function saveAndRender() {
+            localStorage.setItem('gamer_todos', JSON.stringify(todos));
+            renderTodos();
+        }
+
+        // Načtení úkolů při startu
+        renderTodos();
     </script>
 </body>
 </html>
