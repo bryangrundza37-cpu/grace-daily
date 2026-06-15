@@ -8,48 +8,91 @@
     <style>
         :root { --dark: #0f172a; --card: #1e293b; --accent: #38bdf8; --text: #f1f5f9; }
         body { background-color: var(--dark); color: var(--text); font-family: 'Inter', sans-serif; margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .container { width: 100%; max-width: 500px; }
+        .container { width: 100%; max-width: 500px; text-align: center; }
         h1 { font-size: 1.8rem; margin-bottom: 20px; color: var(--accent); }
-        .search-box { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #334155; background: var(--card); color: white; margin-bottom: 20px; font-size: 1rem; }
-        .btn-search { width: 100%; padding: 15px; background: var(--accent); border: none; border-radius: 12px; color: var(--dark); font-weight: 800; cursor: pointer; transition: 0.3s; }
+        .search-box { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #334155; background: var(--card); color: white; margin-bottom: 20px; font-size: 1rem; box-sizing: border-box; outline: none; }
+        .search-box:focus { border-color: var(--accent); }
+        .btn-search { width: 100%; padding: 15px; background: var(--accent); border: none; border-radius: 12px; color: var(--dark); font-weight: 800; cursor: pointer; transition: 0.3s; font-size: 1rem; }
         .btn-search:hover { filter: brightness(1.2); }
-        #game-result { margin-top: 30px; display: none; }
+        #status-msg { margin-top: 15px; color: #94a3b8; font-size: 0.9rem; font-style: italic; }
+        #game-result { margin-top: 30px; display: none; text-align: left; }
         .game-card { background: var(--card); border-radius: 16px; padding: 20px; border: 1px solid #334155; }
-        .game-card img { width: 100%; border-radius: 10px; margin-bottom: 15px; }
-        .btn-link { display: block; width: 100%; padding: 10px; background: #334155; color: white; text-align: center; text-decoration: none; border-radius: 8px; margin-top: 10px; font-weight: 600; }
+        .game-card img { width: 100%; border-radius: 10px; margin-bottom: 15px; display: block; }
+        .game-title { font-size: 1.4rem; margin-bottom: 5px; color: #fff; }
+        .game-info { color: #94a3b8; font-size: 0.95rem; margin-bottom: 15px; }
+        .btn-link { display: block; width: 100%; padding: 12px; background: #334155; color: white; text-align: center; text-decoration: none; border-radius: 8px; margin-top: 10px; font-weight: 600; box-sizing: border-box; transition: 0.2s; }
+        .btn-link:hover { background: #475569; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>GameCompass 🎮</h1>
-        <input type="text" id="game-input" class="search-box" placeholder="Jakou hru hledáš? (např. Elden Ring)">
+        <input type="text" id="game-input" class="search-box" placeholder="Jakou hru hledáš? (např. Elden Ring)" onkeypress="handleKeyPress(event)">
         <button class="btn-search" onclick="searchGame()">HLEDAT HRU</button>
+        
+        <div id="status-msg"></div>
 
         <div id="game-result" class="game-card">
             <img id="game-img" src="" alt="Game Art">
-            <h2 id="game-title"></h2>
-            <p id="game-info"></p>
-            <a id="guide-link" href="#" target="_blank" class="btn-link">🔍 Najít návod na YouTube</a>
-            <a id="achieve-link" href="#" target="_blank" class="btn-link">🏆 Achievement Guide</a>
+            <h2 id="game-title" class="game-title"></h2>
+            <p id="game-info" class="game-info"></p>
+            <a id="guide-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-link">🔍 Najít návod na YouTube</a>
+            <a id="achieve-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-link">🏆 Achievement Guide</a>
         </div>
     </div>
 
     <script>
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') {
+                searchGame();
+            }
+        }
+
         async function searchGame() {
-            const query = document.getElementById('game-input').value;
-            const res = await fetch(`https://api.rawg.io/api/games?search=${query}&key=4c75908323a64964893799637a78370d`);
-            const data = await res.json();
-            const game = data.results[0];
+            const query = document.getElementById('game-input').value.trim();
+            const statusMsg = document.getElementById('status-msg');
+            const resultBox = document.getElementById('game-result');
             
-            if (game) {
-                document.getElementById('game-img').src = game.background_image;
+            if (!query) {
+                statusMsg.innerText = "Napiš nejdříve název hry!";
+                return;
+            }
+
+            statusMsg.innerText = "Hledám v databázi...";
+            resultBox.style.display = 'none';
+
+            try {
+                // Připojení na RAWG API s ošetřeným protokolem HTTPS
+                const response = await fetch(`https://api.rawg.io/api/games?search=${encodeURIComponent(query)}&key=4c75908323a64964893799637a78370d`);
+                
+                if (!response.ok) {
+                    throw new Error(`Chyba serveru: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                if (!data.results || data.results.length === 0) {
+                    statusMsg.innerText = "Hru se nepodařilo najít. Zkus jiný nebo přesnější název.";
+                    return;
+                }
+
+                const game = data.results[0];
+                
+                // Vyplnění dat do karty
+                document.getElementById('game-img').src = game.background_image || 'https://via.placeholder.com/600x400?text=Bez+Obrazku';
                 document.getElementById('game-title').innerText = game.name;
-                document.getElementById('game-info').innerText = `Rok vydání: ${game.released || 'Neznámý'}`;
-                document.getElementById('guide-link').href = `https://www.youtube.com/results?search_query=${game.name}+walkthrough`;
-                document.getElementById('achieve-link').href = `https://www.google.com/search?q=${game.name}+achievements+guide`;
-                document.getElementById('game-result').style.display = 'block';
-            } else {
-                alert("Hru se nepodařilo najít. Zkus jiný název!");
+                document.getElementById('game-info').innerText = `Rok vydání: ${game.released ? game.released.split('-')[0] : 'Neznámý'}`;
+                
+                // Oprava odkazů pro stoprocentní funkčnost
+                document.getElementById('guide-link').href = `https://www.youtube.com/results?search_query=${encodeURIComponent(game.name)}+walkthrough`;
+                document.getElementById('achieve-link').href = `https://www.google.com/search?q=${encodeURIComponent(game.name)}+achievements+guide`;
+                
+                statusMsg.innerText = "";
+                resultBox.style.display = 'block';
+                
+            } catch (error) {
+                console.error(error);
+                statusMsg.innerHTML = `<span style="color: #ef4444;">Chyba při načítání: ${error.message}<br>Zkontroluj připojení nebo zkus vypnout AdBlock.</span>`;
             }
         }
     </script>
