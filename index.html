@@ -3,42 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GraceDaily | Cesta k modlitbě</title>
+    <title>GraceDaily | Tvá kompletní cesta</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-color: #0b130e; --card-bg: #142219; --accent-color: #4ade80; --text-main: #f3f4f6; }
-        body { background-color: var(--bg-color); color: var(--text-main); padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        .container { width: 100%; max-width: 650px; }
-        .btn-link { display: block; width: 100%; padding: 15px; background: rgba(74, 222, 128, 0.1); border: 1px solid var(--accent-color); border-radius: 12px; color: var(--accent-color); text-decoration: none; text-align: center; font-weight: 600; margin-bottom: 20px; }
-        .guide-box { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; margin-bottom: 20px; border-left: 4px solid var(--accent-color); }
-        h2 { color: var(--accent-color); font-size: 1.1rem; margin-bottom: 10px; }
-        .prayer-btn { background: var(--accent-color); color: #000; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+        :root { --bg-color: #0b130e; --card-bg: #142219; --accent-color: #4ade80; --text-main: #f3f4f6; --text-muted: #9ca3af; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .container { width: 100%; max-width: 650px; text-align: center; }
+        .cross-icon { color: var(--accent-color); margin-bottom: 10px; }
+        h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 20px; color: var(--accent-color); letter-spacing: -0.5px; }
+        
+        /* 1. KARTA S VERŠEM */
+        .display-card { background: var(--card-bg); border-radius: 20px; padding: 30px; margin-bottom: 20px; box-shadow: 0 10px 35px rgba(0,0,0,0.4); border: 1px solid rgba(74, 222, 128, 0.05); }
+        .verse-text { font-size: 1.25rem; margin-bottom: 15px; font-style: italic; line-height: 1.6; color: #fff; }
+        .verse-ref { color: var(--accent-color); font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
+        
+        /* 2. DENNÍ VÝZVA */
+        .challenge-card { border: 1px solid var(--accent-color); border-radius: 15px; padding: 20px; background: rgba(74, 222, 128, 0.03); margin-bottom: 20px; transition: all 0.4s ease; }
+        .challenge-card.done { border-color: #22c55e; background: rgba(34, 197, 94, 0.12); }
+        .btn-done { background: var(--accent-color); color: #000; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 15px; }
+        .btn-done:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(74, 222, 128, 0.3); }
+
+        /* TELEVIZE ODKAZ */
+        .btn-link { display: block; width: 100%; padding: 14px; background: rgba(74, 222, 128, 0.08); border: 1px solid rgba(74, 222, 128, 0.3); border-radius: 12px; color: var(--accent-color); text-decoration: none; text-align: center; font-weight: 600; margin-bottom: 20px; transition: 0.2s; }
+        .btn-link:hover { background: rgba(74, 222, 128, 0.15); }
+
+        /* 3. ŽIVÝ OTEVŘENÝ CHAT */
+        .chat-section { background: rgba(20, 34, 25, 0.7); border: 1px solid rgba(74, 222, 128, 0.1); border-radius: 15px; padding: 20px; text-align: left; margin-bottom: 20px; }
+        .chat-box { height: 250px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.2); border-radius: 10px; padding: 15px; margin-bottom: 15px; display: flex; flex-direction: column; gap: 10px; }
+        .msg { max-width: 85%; padding: 10px 14px; border-radius: 12px; font-size: 0.95rem; line-height: 1.4; }
+        .msg.user { background: rgba(255,255,255,0.08); align-self: flex-end; border-bottom-right-radius: 2px; }
+        .msg.ai { background: rgba(74, 222, 128, 0.1); border-left: 3px solid var(--accent-color); align-self: flex-start; border-bottom-left-radius: 2px; }
+        .chat-input-row { display: flex; gap: 10px; }
+        .chat-input { flex: 1; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; color: #fff; font-size: 0.95rem; outline: none; }
+        .chat-input:focus { border-color: var(--accent-color); }
+        .btn-send { background: var(--accent-color); color: #000; border: none; padding: 0 20px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+
+        /* 4. VEČERNÍ REFLEXE */
+        .reflection-section { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 15px; padding: 20px; text-align: left; }
+        textarea { width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; color: var(--text-main); font-size: 0.95rem; resize: none; min-height: 80px; outline: none; }
+        textarea:focus { border-color: var(--accent-color); }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="cross-icon">
+            <svg width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="7" y1="8" x2="17" y2="8"/></svg>
+        </div>
         <h1>GraceDaily</h1>
         
-        <!-- Odkaz na živé vysílání -->
-        <a href="https://www.tvnoe.cz/" target="_blank" class="btn-link">Sledovat živé vysílání (TV Noe)</a>
-
-        <div class="guide-box">
-            <h2>Tvůj čas s Bohem</h2>
-            <p id="guide-text">Cítíš potřebu o něčem mluvit? Napiš sem své trápení nebo radost jako úmysl pro svou modlitbu. Pomohu ti ji formulovat.</p>
-            <textarea id="prayer-input" style="width:100%; background:rgba(0,0,0,0.2); color:#fff; border:1px solid #444; padding:10px; margin:10px 0; border-radius:8px;"></textarea>
-            <button class="prayer-btn" onclick="transformToPrayer()">Proměnit v modlitbu</button>
+        <!-- VERŠ -->
+        <div class="display-card">
+            <div id="verse-content">Načítám tvou cestu...</div>
         </div>
 
-        <div id="prayer-result" style="display:none; padding:20px; background:rgba(74,222,128,0.05); border-radius:15px; font-style:italic;"></div>
+        <!-- VÝZVA -->
+        <div class="challenge-card" id="challenge-box">
+            <p style="font-size: 0.75rem; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px;">Výzva pro dnešní den</p>
+            <p id="challenge-content" style="margin-top:10px; font-size: 1.15rem; font-weight: 600;"></p>
+            <button class="btn-done" id="done-btn" onclick="completeChallenge()">Mám splněno!</button>
+        </div>
+
+        <!-- TV NOE VYSÍLÁNÍ -->
+        <a href="https://www.tvnoe.cz/live" target="_blank" class="btn-link">📺 Spustit živé vysílání TV Noe</a>
+
+        <!-- ROZHOVOR / ASISTENT -->
+        <div class="chat-section">
+            <p style="color: var(--accent-color); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; text-align: center;">Tvůj osobní asistent & průvodce</p>
+            <div class="chat-box" id="chat-stream">
+                <div class="msg ai">Ahoj! Jsem tvůj průvodce na dnešní den. Můžeš se mě zeptat na cokoliv – ať už tě zajímá víra, osobní život, nebo potřebuješ poradit s čímkoliv jiným. O čem si popovídáme?</div>
+            </div>
+            <div class="chat-input-row">
+                <input type="text" id="chat-user-message" class="chat-input" placeholder="Napiš cokoliv, co tě zajímá..." onkeypress="handleChatKey(event)">
+                <button class="btn-send" onclick="sendMessageToAI()">Odeslat</button>
+            </div>
+        </div>
+
+        <!-- VEČERNÍ VDĚČNOST -->
+        <div class="reflection-section">
+            <p style="color: var(--text-muted); font-size: 0.8rem; font-weight:600; text-transform:uppercase; margin-bottom:10px; text-align:center;">Moje večerní vděčnost & myšlenky</p>
+            <textarea id="reflection-text" placeholder="Za co dnes můžu poděkovat? (Ukládá se automaticky do telefonu...)" oninput="saveReflection()"></textarea>
+        </div>
     </div>
 
     <script>
-        function transformToPrayer() {
-            const input = document.getElementById('prayer-input').value;
-            if(!input) return;
-            const res = document.getElementById('prayer-result');
-            res.style.display = "block";
-            res.innerHTML = `<strong>Tvá modlitba:</strong><br><br>„Pane, přicházím k Tobě s tím, co mám v srdci: ${input}. Prosím, dej mi sílu to nést, veď mé kroky a naplň mě svým pokojem. Amen.“<br><br><small><em>(Přečti si nyní tato slova pomalu nahlas.)</em></small>`;
+        const verses = [
+            {v:"Neboj se, vždyť já jsem s tebou. Nerozhlížej se úzkostlivě, já jsem tvůj Bůh. Dodám ti sílu, pomohu ti.", r:"Izajáš 41:10"},
+            {v:"Pojďte ke mně, všichni, kdo se namáháte a jste obtíženi, a já vám dám odpočinout.", r:"Matouš 11:28"},
+            {v:"Hospodin je můj pastýř, nebudu mít nedostatek. Vodí mě na klidná místa u vod.", r:"Žalm 23:1"},
+            {v:"Všechno mohu v Kristu, který mi dává sílu.", r:"Filipským 4:13"}
+        ];
+        const challenges = [
+            "Napiš někomu upřímnou zprávu a oceň jeho přítomnost ve tvém životě.",
+            "Dnes se vědomě vyhni jakémukoliv stěžování si nebo posuzování druhých.",
+            "Zastav se dnes na 5 minut v naprostém tichu, zavři oči a zklidni svou mysl."
+        ];
+
+        // Databáze pro otevřený chat (inteligentní odpovědi)
+        const generalReplies = {
+            zivot: "Život přináší spoustu výzev. Důležité je neztrácet naději a dělat malé kroky každý den. Jak ti v tomhle můžu dnes nejlépe pomoct?",
+            prace: "Když jde o práci nebo povinnosti, základem je najít správnou rovnováhu, aby ti zbýval čas i na klid a lidi kolem tebe. Co konkrétně tě v práci zaměstnává?",
+            vira: "Víra je jako sval – roste s tím, jak ji používáš v běžných dnech. Není to o dokonalosti, ale o upřímné snaze jít správným směrem.",
+            klid: "Klid začíná tím, že na chvíli vypneš okolní hluk a prostě jen jsi. Dnešní výzva ti s tím může skvěle pomoct, zkus ji využít."
+        };
+
+        function getDailyIdx(arr, key) {
+            const today = new Date();
+            const dateStr = today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
+            let state = JSON.parse(localStorage.getItem(key) || "{}");
+            if (state.date !== dateStr) {
+                let used = state.used || [];
+                if (used.length >= arr.length) used = [];
+                let available = arr.map((_, i) => i).filter(i => !used.includes(i));
+                let newIdx = available[Math.floor(Math.random() * available.length)];
+                used.push(newIdx);
+                state = { date: dateStr, idx: newIdx, used: used, completed: false };
+                localStorage.setItem(key, JSON.stringify(state));
+            }
+            return state;
+        }
+
+        const verseState = getDailyIdx(verses, 'vState');
+        const challengeState = getDailyIdx(challenges, 'cState');
+
+        document.getElementById('verse-content').innerHTML = `<p class="verse-text">„${verses[verseState.idx].v}“</p><p class="verse-ref">${verses[verseState.idx].r}</p>`;
+        document.getElementById('challenge-content').innerText = challenges[challengeState.idx];
+
+        if (challengeState.completed) markAsDone();
+
+        function completeChallenge() {
+            let state = JSON.parse(localStorage.getItem('cState'));
+            state.completed = true;
+            localStorage.setItem('cState', JSON.stringify(state));
+            markAsDone();
+        }
+
+        function markAsDone() {
+            document.getElementById('challenge-box').classList.add('done');
+            document.getElementById('challenge-content').innerHTML = "<strong>Skvělá práce! Výzva splněna.</strong> 🎉";
+            document.getElementById('done-btn').style.display = 'none';
+        }
+
+        // OTEVŘENÝ CHAT
+        function handleChatKey(e) { if(e.key === 'Enter') sendMessageToAI(); }
+
+        function sendMessageToAI() {
+            const inputEl = document.getElementById('chat-user-message');
+            const messageText = inputEl.value.trim();
+            if(!messageText) return;
+
+            appendMessage(messageText, 'user');
+            inputEl.value = "";
+
+            const loadingMsg = appendMessage("Přemýšlím...", 'ai');
+
+            setTimeout(() => {
+                loadingMsg.remove();
+                const lowerText = messageText.toLowerCase();
+                let response = "";
+
+                if (lowerText.includes("prác") || lowerText.includes("robot") || lowerText.includes("skol") || lowerText.includes("škol")) {
+                    response = "Rozumím. Každodenní úkoly, ať už v práci nebo ve škole, dokážou unavit. Důležité je rozdělit si věci na menší části a nezapomínat na přestávky. Jak to dnes zvládáš?";
+                } else if (lowerText.includes("život") || lowerText.includes("zivot") || lowerText.includes("lidi") || lowerText.includes("člověk")) {
+                    response = generalReplies.zivot;
+                } else if (lowerText.includes("vír") || lowerText.includes("vir") || lowerText.includes("bůh") || lowerText.includes("buh") || lowerText.includes("kostel")) {
+                    response = generalReplies.vira;
+                } else if (lowerText.includes("klid") || lowerText.includes("pokoj") || lowerText.includes("strach")) {
+                    response = generalReplies.klid;
+                } else {
+                    response = "To zní zajímavě! Jsem tu od toho, abych tě doprovázel a probral s tebou cokoli, co tě napadne. Řekni mi o tom klidně víc, jak to vidíš ty?";
+                }
+
+                appendMessage(response, 'ai');
+            }, 1000);
+        }
+
+        function appendMessage(text, side) {
+            const stream = document.getElementById('chat-stream');
+            const el = document.createElement('div');
+            el.className = `msg ${side}`;
+            el.innerText = text;
+            stream.appendChild(el);
+            stream.scrollTop = stream.scrollHeight;
+            return el;
+        }
+
+        // VEČERNÍ REFLEXE
+        const todayStr = new Date().toDateString();
+        document.getElementById('reflection-text').value = localStorage.getItem('ref_' + todayStr) || "";
+        function saveReflection() {
+            localStorage.setItem('ref_' + todayStr, document.getElementById('reflection-text').value);
         }
     </script>
 </body>
