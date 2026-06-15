@@ -3,160 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GraceDaily | Křesťanský nástroj pro každý den</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>GameCompass | Tvůj herní průvodce</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-color: #0b130e; --card-bg: #142219; --accent-color: #4ade80; --text-main: #f3f4f6; --text-muted: #9ca3af; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        .container { width: 100%; max-width: 650px; text-align: center; }
-        .cross-icon { color: var(--accent-color); margin-bottom: 10px; }
-        h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 5px; color: var(--accent-color); letter-spacing: -0.5px; }
-        .subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px; }
-        
-        /* SDRUŽENÉ KARTY */
-        .section-card { background: var(--card-bg); border-radius: 20px; padding: 25px; margin-bottom: 20px; box-shadow: 0 10px 35px rgba(0,0,0,0.4); border: 1px solid rgba(74, 222, 128, 0.05); text-align: left; }
-        .section-title { color: var(--accent-color); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px; text-align: center; }
-
-        .verse-text { font-size: 1.2rem; margin-bottom: 12px; font-style: italic; line-height: 1.6; color: #fff; text-align: center; }
-        .verse-ref { color: var(--accent-color); font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
-        
-        .challenge-text { font-size: 1.1rem; font-weight: 600; text-align: center; margin: 10px 0; }
-        .btn-action { display: block; width: 100%; background: var(--accent-color); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; text-align: center; transition: 0.2s; text-decoration: none; }
-        .btn-action:hover { transform: translateY(-1px); box-shadow: 0 5px 15px rgba(74, 222, 128, 0.25); }
-        
-        /* DUCHOVNÍ LÉKÁRNIČKA */
-        .pill-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
-        .btn-pill { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 0.9rem; font-weight: 600; text-align: center; transition: 0.2s; }
-        .btn-pill:hover { border-color: var(--accent-color); background: rgba(74, 222, 128, 0.05); }
-        .medicine-result { background: rgba(0,0,0,0.2); border-left: 3px solid var(--accent-color); padding: 15px; border-radius: 8px; font-style: italic; display: none; line-height: 1.5; }
-
-        /* ROZCESTNÍK ODKAZŮ */
-        .link-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .btn-outline-link { display: block; padding: 12px 5px; background: rgba(74, 222, 128, 0.05); border: 1px solid rgba(74, 222, 128, 0.2); border-radius: 10px; color: var(--accent-color); text-decoration: none; text-align: center; font-size: 0.85rem; font-weight: 600; transition: 0.2s; }
-        .btn-outline-link:hover { background: rgba(74, 222, 128, 0.12); }
-
-        textarea { width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; color: var(--text-main); font-size: 0.95rem; resize: none; min-height: 80px; outline: none; }
-        textarea:focus { border-color: var(--accent-color); }
-        .done-box { border-color: #22c55e; background: rgba(34, 197, 94, 0.08); text-align: center; padding: 10px; border-radius: 10px; border: 1px solid #22c55e; font-weight: 600; }
+        :root { --dark: #0f172a; --card: #1e293b; --accent: #38bdf8; --text: #f1f5f9; }
+        body { background-color: var(--dark); color: var(--text); font-family: 'Inter', sans-serif; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .container { width: 100%; max-width: 500px; }
+        h1 { font-size: 1.8rem; margin-bottom: 20px; color: var(--accent); }
+        .search-box { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #334155; background: var(--card); color: white; margin-bottom: 20px; font-size: 1rem; }
+        .btn-search { width: 100%; padding: 15px; background: var(--accent); border: none; border-radius: 12px; color: var(--dark); font-weight: 800; cursor: pointer; transition: 0.3s; }
+        .btn-search:hover { filter: brightness(1.2); }
+        #game-result { margin-top: 30px; display: none; }
+        .game-card { background: var(--card); border-radius: 16px; padding: 20px; border: 1px solid #334155; }
+        .game-card img { width: 100%; border-radius: 10px; margin-bottom: 15px; }
+        .btn-link { display: block; width: 100%; padding: 10px; background: #334155; color: white; text-align: center; text-decoration: none; border-radius: 8px; margin-top: 10px; font-weight: 600; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="cross-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="7" y1="8" x2="17" y2="8"/></svg>
-        </div>
-        <h1>GraceDaily</h1>
-        <div class="subtitle">Tvůj každodenní křesťanský doprovod a průvodce</div>
-        
-        <div class="section-card">
-            <p class="section-title">Slovo Boží na dnešní den</p>
-            <div id="verse-content">Načítám...</div>
-        </div>
+        <h1>GameCompass 🎮</h1>
+        <input type="text" id="game-input" class="search-box" placeholder="Jakou hru hledáš? (např. Elden Ring)">
+        <button class="btn-search" onclick="searchGame()">HLEDAT HRU</button>
 
-        <div class="section-card" id="challenge-box">
-            <p class="section-title">Dnešní křesťanská výzva</p>
-            <p id="challenge-content" class="challenge-text"></p>
-            <button class="btn-action" id="done-btn" onclick="completeChallenge()">Mám splněno!</button>
-        </div>
-
-        <div class="section-card">
-            <p class="section-title">Duchovní lékárnička (Rychlá pomoc pro duši)</p>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; text-align: center;">Vyber si, co právě teď prožíváš ve svém srdci:</p>
-            <div class="pill-grid">
-                <button class="btn-pill" onclick="openMedicine('empty')">Cítím se prázdný / sám</button>
-                <button class="btn-pill" onclick="openMedicine('fear')">Mám strach / úzkost</button>
-                <button class="btn-pill" onclick="openMedicine('sin')">Hledám odpuštění</button>
-                <button class="btn-pill" onclick="openMedicine('thanks')">Chci vzdát vděčnost</button>
-            </div>
-            <div id="medicine-result" class="medicine-result"></div>
-        </div>
-
-        <div class="section-card">
-            <p class="section-title">Užitečné křesťanské nástroje online</p>
-            <div class="link-grid">
-                <a href="https://www.tvnoe.cz/live" target="_blank" class="btn-outline-link">📺 TV Noe Živě</a>
-                <a href="https://www.biblenet.cz/" target="_blank" class="btn-outline-link">📖 Bible Online</a>
-                <a href="https://www.vircan.cz/" target="_blank" class="btn-outline-link">🙏 Denní Liturgie</a>
-            </div>
-        </div>
-
-        <div class="section-card">
-            <p class="section-title">Moje večerní ztišení & modlitební úmysly</p>
-            <textarea id="reflection-text" placeholder="Za co nebo za koho se dnes chceš modlit? Co chceš odevzdat do Božího pokoje? (Ukládá se bezpečně do tvého telefonu...)" oninput="saveReflection()"></textarea>
+        <div id="game-result" class="game-card">
+            <img id="game-img" src="" alt="Game Art">
+            <h2 id="game-title"></h2>
+            <p id="game-info"></p>
+            <a id="guide-link" href="#" target="_blank" class="btn-link">🔍 Najít návod na YouTube</a>
+            <a id="achieve-link" href="#" target="_blank" class="btn-link">🏆 Achievement Guide</a>
         </div>
     </div>
 
     <script>
-        const verses = [
-            {v:"Neboj se, vždyť já jsem s tebou. Nerozhlížej se úzkostlivě, já jsem tvůj Bůh. Dodám ti sílu, pomohu ti.", r:"Izajáš 41:10"},
-            {v:"Pojďte ke mně, všichni, kdo se namáháte a jste obtíženi, a já vám dám odpočinout.", r:"Matouš 11:28"},
-            {v:"Hospodin je můj pastýř, nebudu mít nedostatek. Vodí mě na klidná místa u vod.", r:"Žalm 23:1"},
-            {v:"Všechno mohu v Kristu, který mi dává sílu.", r:"Filipským 4:13"}
-        ];
-        const challenges = [
-            "Napiš někomu upřímnou zprávu a oceň jeho přítomnost ve tvém životě.",
-            "Dnes se vědomě vyhni jakémukoliv stěžování si nebo posuzování druhých.",
-            "Zastav se dnes na 5 minut v naprostém tichu, zavři oči a vnímej Boží blízkost."
-        ];
-
-        // DATABÁZE PRO DUCHOVNÍ LÉKÁRNIČKU
-        const medicineData = {
-            empty: "<strong>Povzbuzení:</strong> U Boha máš šanci úplně vždycky. Ta prázdnota, kterou prožíváš, je prostor, který chce Bůh naplnit svou láskou. Nejsi na to sám.<br><br><strong>Verš k zamyšlení:</strong> „Hospodin je blízko těm, kdo mají zkroušené srdce...“ (Žalm 34:19)<br><br><strong>Modlitba:</strong> <em>Pane, cítím se prázdný a sám. Přijď do mého srdce, naplň ho svou přítomností a dej mi pocítit, že mě miluješ přesně takového, jaký jsem. Amen.</em>",
-            fear: "<strong>Povzbuzení:</strong> Strach a úzkost nás často oslepují, ale pamatuj, že budoucnost je v dobrých rukou. Nemusíš všechno zvládnout sám.<br><br><strong>Verš k zamyšlení:</strong> „Svou starost hoďte na Hospodina, on se o vás postará.“ (1. Petrova 5:7)<br><br><strong>Modlitba:</strong> <em>Pane, odevzdávám ti svůj strach a neklid. Daruj mé mysli Tvůj hluboký pokoj, abych dokázal s důvěrou kráčet dnešním dnem. Amen.</em>",
-            sin: "<strong>Povzbuzení:</strong> Žádná chyba ani selhání není větší než Boží milosrdenství. Pokud lituješ, cesta je okamžitě volná. Máš čistý štít.<br><br><strong>Verš k zamyšlení:</strong> „Jestliže vyznáváme své hříchy, on je věrný a spravedlivý, aby nám hříchy odpustil.“ (1. Janův 1:9)<br><br><strong>Modlitba:</strong> <em>Pane, lituji svých chyb a slabostí. Děkuji ti za tvé nekonečné odpuštění a prosím o sílu začít dnes znovu a lépe. Amen.</em>",
-            thanks: "<strong>Povzbuzení:</strong> Vděčnost otevírá oči pro věci, které bereme jako samozřejmost. Radost sdílená s Bohem roste.<br><br><strong>Verš k zamyšlení:</strong> „Chvalte Hospodina, neboť je dobrý, jeho milosrdenství je věčné.“ (Žalm 136:1)<br><br><strong>Modlitba:</strong> <em>Děkuji ti, Pane, za dar dnešního dne, za lidi kolem mě a za každé malé požehnání, které mi posíláš do cesty. Amen.</em>"
-        };
-
-        function getDailyIdx(arr, key) {
-            const today = new Date();
-            const dateStr = today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
-            let state = JSON.parse(localStorage.getItem(key) || "{}");
-            if (state.date !== dateStr) {
-                let used = state.used || [];
-                if (used.length >= arr.length) used = [];
-                let available = arr.map((_, i) => i).filter(i => !used.includes(i));
-                let newIdx = available[Math.floor(Math.random() * available.length)];
-                used.push(newIdx);
-                state = { date: dateStr, idx: newIdx, used: used, completed: false };
-                localStorage.setItem(key, JSON.stringify(state));
+        async function searchGame() {
+            const query = document.getElementById('game-input').value;
+            const res = await fetch(`https://api.rawg.io/api/games?search=${query}&key=4c75908323a64964893799637a78370d`);
+            const data = await res.json();
+            const game = data.results[0];
+            
+            if (game) {
+                document.getElementById('game-img').src = game.background_image;
+                document.getElementById('game-title').innerText = game.name;
+                document.getElementById('game-info').innerText = `Rok vydání: ${game.released || 'Neznámý'}`;
+                document.getElementById('guide-link').href = `https://www.youtube.com/results?search_query=${game.name}+walkthrough`;
+                document.getElementById('achieve-link').href = `https://www.google.com/search?q=${game.name}+achievements+guide`;
+                document.getElementById('game-result').style.display = 'block';
+            } else {
+                alert("Hru se nepodařilo najít. Zkus jiný název!");
             }
-            return state;
-        }
-
-        const verseState = getDailyIdx(verses, 'vState');
-        const challengeState = getDailyIdx(challenges, 'cState');
-
-        document.getElementById('verse-content').innerHTML = `<p class="verse-text">„${verses[verseState.idx].v}“</p><p class="verse-ref">${verses[verseState.idx].r}</p>`;
-        document.getElementById('challenge-content').innerText = challenges[challengeState.idx];
-
-        if (challengeState.completed) markAsDone();
-
-        function completeChallenge() {
-            let state = JSON.parse(localStorage.getItem('cState'));
-            state.completed = true;
-            localStorage.setItem('cState', JSON.stringify(state));
-            markAsDone();
-        }
-
-        function markAsDone() {
-            const box = document.getElementById('challenge-box');
-            box.innerHTML = `<p class="section-title">Dnešní křesťanská výzva</p><div class="done-box">✨ Výzva dne splněna s láskou!</div>`;
-        }
-
-        // OBSLUHA LÉKÁRNIČKY
-        function openMedicine(type) {
-            const resultBox = document.getElementById('medicine-result');
-            resultBox.style.display = "block";
-            resultBox.innerHTML = medicineData[type];
-            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-
-        // VEČERNÍ REFLEXE
-        const todayStr = new Date().toDateString();
-        document.getElementById('reflection-text').value = localStorage.getItem('ref_' + todayStr) || "";
-        function saveReflection() {
-            localStorage.setItem('ref_' + todayStr, document.getElementById('reflection-text').value);
         }
     </script>
 </body>
